@@ -1,13 +1,13 @@
-export type Result<T, E extends Error = Error> = Success<T> | Failure<E>
-
-export class Success<T> {
-  constructor(public value: T) {}
+export class Success<const T> {
+  constructor(public readonly value: T) {}
   readonly isSuccess = true
   readonly isFailure = false
 }
 
-export class Failure<E extends Error> {
-  constructor(public error: E) {}
+export class Failure<const E> {
+  constructor(public readonly error: E) {}
   readonly isSuccess = false
   readonly isFailure = true
 }
+
+export type Result<T, E = unknown> = Success<T> | Failure<E>

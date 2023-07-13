@@ -13,6 +13,6 @@ test('Constructor', () => {
   expect(failure.isSuccess).toBe(false)
   expect(failure.isFailure).toBe(true)
   if (failure.isFailure) {
-    expect(failure.error.message).toBe('error')
+    expect(failure.error instanceof Error && failure.error.message).toBe('error')
   }
 })
