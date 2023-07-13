@@ -16,7 +16,7 @@
     "format": "run-p format:*",
     "format:prettier": "prettier --write \"src/**/*.ts\"",
     "format:package-json": "sort-package-json",
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "test": "vitest --silent=false",
     "typecheck": "tsc --noEmit"
   },
   "devDependencies": {
@@ -24,7 +24,8 @@
     "npm-run-all": "^4.1.5",
     "prettier": "^3.0.0",
     "sort-package-json": "^2.5.1",
-    "typescript": "^5.1.6"
+    "typescript": "^5.1.6",
+    "vitest": "^0.33.0"
   },
   "volta": {
     "node": "18.12.1"
