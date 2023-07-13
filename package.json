@@ -14,5 +14,8 @@
   "bugs": {
     "url": "https://github.com/ootidea/ts-result-type/issues"
   },
-  "homepage": "https://github.com/ootidea/ts-result-type#readme"
+  "homepage": "https://github.com/ootidea/ts-result-type#readme",
+  "volta": {
+    "node": "18.12.1"
+  }
 }
