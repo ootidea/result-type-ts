@@ -13,3 +13,13 @@ export class Failure<const E> {
 }
 
 export type Result<T, E = unknown> = Success<T> | Failure<E>
+
+export namespace Result {
+  export function tryCatch<T>(f: () => T): Result<T> {
+    try {
+      return new Success(f())
+    } catch (error) {
+      return new Failure(error)
+    }
+  }
+}

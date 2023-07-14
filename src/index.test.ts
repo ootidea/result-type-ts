@@ -14,3 +14,15 @@ test('Properties', () => {
   expect(failure.value).toBe(undefined)
   expect(failure.error instanceof Error && failure.error.message).toBe('error')
 })
+
+test('tryCatch', () => {
+  const success = Result.tryCatch(() => 123)
+  expect(success.isSuccess).toBe(true)
+  expect(success.value).toBe(123)
+
+  const failure = Result.tryCatch(() => {
+    throw new Error('error')
+  })
+  expect(failure.isFailure).toBe(true)
+  expect(failure.error instanceof Error && failure.error.message).toBe('error')
+})
