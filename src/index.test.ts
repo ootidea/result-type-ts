@@ -1,14 +1,14 @@
 import { expect, test } from 'vitest'
-import { Failure, Result, Success } from './index'
+import { Result } from './index'
 
 test('Properties', () => {
-  const success = new Success(123) as Result<number>
+  const success = Result.success(123) as Result<number>
   expect(success.isSuccess).toBe(true)
   expect(success.isFailure).toBe(false)
   expect(success.value).toBe(123)
   expect(success.error).toBe(undefined)
 
-  const failure = new Failure(new Error('error')) as Result<number>
+  const failure = Result.failure(new Error('error')) as Result<number>
   expect(failure.isSuccess).toBe(false)
   expect(failure.isFailure).toBe(true)
   expect(failure.value).toBe(undefined)
