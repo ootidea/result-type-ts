@@ -9,19 +9,19 @@ export namespace Result {
     readonly isSuccess = true
     readonly isFailure = false
 
+    ifSuccess<U>(f: (value: T) => U): U {
+      return f(this.value)
+    }
+    ifFailure(f: (value: never) => unknown): undefined {
+      return undefined
+    }
+
     map<T2, E>(f: (value: T) => T2, g: (_: never) => E): Success<T2> {
       return new Success(f(this.value))
     }
 
     flatMap<T2, E>(f: (value: T) => Result<T2, E>): Result<T2, E> {
       return f(this.value)
-    }
-
-    ifSuccess<U>(f: (value: T) => U): U {
-      return f(this.value)
-    }
-    ifFailure(f: (value: never) => unknown): undefined {
-      return undefined
     }
   }
 
@@ -33,19 +33,19 @@ export namespace Result {
     readonly isSuccess = false
     readonly isFailure = true
 
+    ifSuccess(f: (value: never) => unknown): undefined {
+      return undefined
+    }
+    ifFailure<U>(f: (value: E) => U): U {
+      return f(this.error)
+    }
+
     map<T, E2>(f: (_: never) => T, g: (value: E) => E2): Failure<E2> {
       return new Failure(g(this.error))
     }
 
     flatMap<T, E2>(f: (_: never) => Result<T, E2>): Failure<E> {
       return this
-    }
-
-    ifSuccess(f: (value: never) => unknown): undefined {
-      return undefined
-    }
-    ifFailure<U>(f: (value: E) => U): U {
-      return f(this.error)
     }
   }
 
