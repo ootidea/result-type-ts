@@ -16,8 +16,11 @@ export namespace Result {
       return undefined
     }
 
-    map<T2, E>(f: (value: T) => T2, g: (_: never) => E): Success<T2> {
+    map<U>(f: (value: T) => U): Success<U> {
       return new Success(f(this.value))
+    }
+    mapError(f: (error: never) => unknown): Success<T> {
+      return this
     }
 
     flatMap<T2, E>(f: (value: T) => Result<T2, E>): Result<T2, E> {
@@ -40,8 +43,11 @@ export namespace Result {
       return f(this.error)
     }
 
-    map<T, E2>(f: (_: never) => T, g: (value: E) => E2): Failure<E2> {
-      return new Failure(g(this.error))
+    map(f: (value: never) => unknown): Failure<E> {
+      return this
+    }
+    mapError<U>(f: (error: E) => U): Failure<U> {
+      return new Failure(f(this.error))
     }
 
     flatMap<T, E2>(f: (_: never) => Result<T, E2>): Failure<E> {
