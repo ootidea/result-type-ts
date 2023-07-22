@@ -8,11 +8,11 @@ test('Properties', () => {
   expect(success.value).toBe(123)
   expect(success.error).toBe(undefined)
 
-  const failure = Result.failure(new Error('error')) as Result<number>
+  const failure = Result.failure('error') as Result<number>
   expect(failure.isSuccess).toBe(false)
   expect(failure.isFailure).toBe(true)
   expect(failure.value).toBe(undefined)
-  expect(failure.error instanceof Error && failure.error.message).toBe('error')
+  expect(failure.error).toBe('error')
 })
 
 test('tryCatch', () => {
