@@ -16,6 +16,13 @@ export namespace Result {
     flatMap<T2, E>(f: (value: T) => Result<T2, E>): Result<T2, E> {
       return f(this.value)
     }
+
+    ifSuccess<U>(f: (value: T) => U): U {
+      return f(this.value)
+    }
+    ifFailure(f: (value: never) => unknown): undefined {
+      return undefined
+    }
   }
 
   export class Failure<const E> {
@@ -32,6 +39,13 @@ export namespace Result {
 
     flatMap<T, E2>(f: (_: never) => Result<T, E2>): Failure<E> {
       return this
+    }
+
+    ifSuccess(f: (value: never) => unknown): undefined {
+      return undefined
+    }
+    ifFailure<U>(f: (value: E) => U): U {
+      return f(this.error)
     }
   }
 
