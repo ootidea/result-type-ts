@@ -9,6 +9,10 @@ export namespace Result {
     readonly isSuccess = true
     readonly isFailure = false
 
+    getOrThrow(): T {
+      return this.value
+    }
+
     ifSuccess<U>(f: (value: T) => U): U {
       return f(this.value)
     }
@@ -35,6 +39,10 @@ export namespace Result {
 
     readonly isSuccess = false
     readonly isFailure = true
+
+    getOrThrow(): never {
+      throw this.error
+    }
 
     ifSuccess(f: (value: never) => unknown): undefined {
       return undefined

@@ -15,6 +15,14 @@ test('Properties', () => {
   expect(failure.error).toBe('error')
 })
 
+test('getOrThrow', () => {
+  const success = Result.success(123) as Result<number>
+  expect(success.getOrThrow()).toBe(123)
+
+  const failure = Result.failure(new Error('error')) as Result<number>
+  expect(() => failure.getOrThrow()).toThrow('error')
+})
+
 test('ifSuccess', () => {
   const success = Result.success(123) as Result<number>
   expect(success.ifSuccess((value) => -value)).toBe(-123)
