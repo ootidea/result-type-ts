@@ -1,5 +1,7 @@
 # ts-result-type
-`ts-result-type` is a TypeScript library for the `Result<T, E>` type, which is supported in modern languages like Rust, Swift, Kotlin, etc.
+`ts-result-type` is a TypeScript library for the `Result<T, E>` type, which is supported in modern languages like Rust, Swift, Kotlin.  
+
+This library provides a sophisticated set of utilities about Result type.  
 
 ## API
 
@@ -13,11 +15,11 @@
 
 ### Types
 
-|                     | Description                                                                                                |
-|---------------------|------------------------------------------------------------------------------------------------------------|
-| `Result.Success<T>` | The type of a success value holding a value of type `T`.                                                   |
-| `Result.Failure<E>` | The type of a failure value holding an error value of type `E`.                                            |
-| `Result<T, E>`      | Shorthand for `Result.Success<T> \| Result.Failure<E>`. `E` is optional with a default value of `unknown`. |
+|                     | Description                                                                                                     |
+|---------------------|-----------------------------------------------------------------------------------------------------------------|
+| `Result.Success<T>` | The type of a success value holding a value of type `T`.                                                        |
+| `Result.Failure<E>` | The type of a failure value holding an error value of type `E`.                                                 |
+| `Result<T, E>`      | Shorthand for `Result.Success<T> \| Result.Failure<E>` type. `E` is optional with a default value of `unknown`. |
 
 ### Properties
 
