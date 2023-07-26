@@ -39,6 +39,24 @@ test('ifFailure', () => {
   expect(failure.ifFailure((error) => error.message)).toBe('error')
 })
 
+test('match', () => {
+  const success = Result.success(123) as Result<number, Error>
+  expect(
+    success.match(
+      (value) => -value,
+      (error) => error.message,
+    ),
+  ).toBe(-123)
+
+  const failure = Result.failure(new Error('error')) as Result<number, Error>
+  expect(
+    failure.match(
+      (value) => -value,
+      (error) => error.message,
+    ),
+  ).toBe('error')
+})
+
 test('tryCatch', () => {
   const success = Result.tryCatch(() => 123)
   expect(success.isSuccess).toBe(true)

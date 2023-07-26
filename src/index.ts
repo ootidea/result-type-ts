@@ -20,6 +20,10 @@ export namespace Result {
       return undefined
     }
 
+    match<T2, E2>(f: (value: T) => T2, g: (error: never) => E2): T2 {
+      return f(this.value)
+    }
+
     map<U>(f: (value: T) => U): Success<U> {
       return new Success(f(this.value))
     }
@@ -49,6 +53,10 @@ export namespace Result {
     }
     ifFailure<U>(f: (value: E) => U): U {
       return f(this.error)
+    }
+
+    match<T2, E2>(f: (value: never) => T2, g: (error: E) => E2): E2 {
+      return g(this.error)
     }
 
     map(f: (value: never) => unknown): Failure<E> {
