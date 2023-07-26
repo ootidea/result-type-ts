@@ -13,7 +13,7 @@ export namespace Result {
       return this.value
     }
 
-    ifSuccess<U>(f: (value: T) => U): U {
+    ifSuccess<T2>(f: (value: T) => T2): T2 {
       return f(this.value)
     }
     ifFailure(f: (value: never) => unknown): undefined {
@@ -24,7 +24,7 @@ export namespace Result {
       return f(this.value)
     }
 
-    map<U>(f: (value: T) => U): Success<U> {
+    map<T2>(f: (value: T) => T2): Success<T2> {
       return new Success(f(this.value))
     }
     mapError(f: (error: never) => unknown): Success<T> {
@@ -51,7 +51,7 @@ export namespace Result {
     ifSuccess(f: (value: never) => unknown): undefined {
       return undefined
     }
-    ifFailure<U>(f: (value: E) => U): U {
+    ifFailure<E2>(f: (value: E) => E2): E2 {
       return f(this.error)
     }
 
@@ -62,7 +62,7 @@ export namespace Result {
     map(f: (value: never) => unknown): Failure<E> {
       return this
     }
-    mapError<U>(f: (error: E) => U): Failure<U> {
+    mapError<E2>(f: (error: E) => E2): Failure<E2> {
       return new Failure(f(this.error))
     }
 
