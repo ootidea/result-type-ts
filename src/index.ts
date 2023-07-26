@@ -1,7 +1,7 @@
 export type Result<T, E = unknown> = Result.Success<T> | Result.Failure<E>
 
 export namespace Result {
-  export class Success<const T> {
+  export class Success<T> {
     constructor(readonly value: T) {}
 
     readonly error?: never
@@ -32,7 +32,7 @@ export namespace Result {
     }
   }
 
-  export class Failure<const E> {
+  export class Failure<E> {
     constructor(readonly error: E) {}
 
     readonly value?: never
@@ -71,11 +71,11 @@ export namespace Result {
     }
   }
 
-  export function success<const T>(value: T): Success<T> {
+  export function success<T>(value: T): Success<T> {
     return new Success(value)
   }
 
-  export function failure<const E>(error: E): Failure<E> {
+  export function failure<E>(error: E): Failure<E> {
     return new Failure(error)
   }
 }
