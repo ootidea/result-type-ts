@@ -1,14 +1,14 @@
 {
-  "name": "ts-result-type",
+  "name": "result-type-ts",
   "version": "0.0.0",
   "description": "",
-  "homepage": "https://github.com/ootidea/ts-result-type#readme",
+  "homepage": "https://github.com/ootidea/result-type-ts#readme",
   "bugs": {
-    "url": "https://github.com/ootidea/ts-result-type/issues"
+    "url": "https://github.com/ootidea/result-type-ts/issues"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/ootidea/ts-result-type.git"
+    "url": "git+https://github.com/ootidea/result-type-ts.git"
   },
   "license": "CC0-1.0",
   "author": "ootidea",
