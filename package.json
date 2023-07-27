@@ -19,11 +19,25 @@
   "license": "CC0-1.0",
   "author": "ootidea",
   "sideEffects": false,
+  "exports": {
+    ".": {
+      "import": "./dist/index.mjs",
+      "require": "./dist/index.js",
+      "types": "./dist/index.d.ts"
+    }
+  },
+  "main": "./dist/index.mjs",
+  "types": "./dist/index.d.ts",
+  "files": [
+    "dist"
+  ],
   "scripts": {
     "build": "tsup",
     "format": "run-p format:*",
     "format:prettier": "prettier --write \"src/**/*.ts\"",
     "format:package-json": "sort-package-json",
+    "postversion": "git push && git push --tags && npm publish ./",
+    "prepublishOnly": "npm run build",
     "test": "vitest --silent=false",
     "typecheck": "tsc --noEmit"
   },
