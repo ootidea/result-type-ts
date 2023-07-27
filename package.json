@@ -1,7 +1,13 @@
 {
   "name": "result-type-ts",
   "version": "0.0.0",
-  "description": "",
+  "description": "A TypeScript library for the Result type",
+  "keywords": [
+    "Result",
+    "Monad",
+    "functional",
+    "Either"
+  ],
   "homepage": "https://github.com/ootidea/result-type-ts#readme",
   "bugs": {
     "url": "https://github.com/ootidea/result-type-ts/issues"
@@ -12,6 +18,7 @@
   },
   "license": "CC0-1.0",
   "author": "ootidea",
+  "sideEffects": false,
   "scripts": {
     "format": "run-p format:*",
     "format:prettier": "prettier --write \"src/**/*.ts\"",
