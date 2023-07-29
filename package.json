@@ -6,7 +6,8 @@
     "Result",
     "Monad",
     "functional",
-    "Either"
+    "Either",
+    "Algebraic-Data-Types"
   ],
   "homepage": "https://github.com/ootidea/result-type-ts#readme",
   "bugs": {

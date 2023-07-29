@@ -1,5 +1,5 @@
 # result-type-ts
-`result-type-ts` is a TypeScript library for the `Result<T, E>` type, which is supported in modern languages like Rust, Swift, Kotlin.  
+A TypeScript library for the `Result<T, E>` type, which is supported in modern languages like Rust, Swift, Kotlin.  
 
 This library provides a sophisticated set of utilities about Result type.  
 
