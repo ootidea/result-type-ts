@@ -103,8 +103,9 @@ console.log(result2.error) // error
 const result = Result.fromNullish(123);
 console.log(result.value) // 123
 
-const result2 = Result.fromNullish(undefined);
-console.log(result2.error) // undefined
+const result2 = Result.fromNullish(null);
+console.log(result2.error) // null
+console.log(result2.isFailure) // true
 ```
 </details>
 
