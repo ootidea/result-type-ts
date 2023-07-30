@@ -6,6 +6,7 @@
     "Result",
     "Monad",
     "functional",
+    "error-handling",
     "Either",
     "Algebraic-Data-Types"
   ],

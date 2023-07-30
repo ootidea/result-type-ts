@@ -1,7 +1,11 @@
 # result-type-ts
 A TypeScript library for the `Result<T, E>` type, which is supported in modern languages like Rust, Swift, Kotlin.  
 
-This library provides a sophisticated set of utilities about Result type.  
+## Features
+- 0 dependencies
+- Provides many sophisticated functions, properties, and methods
+- Well-tested
+- Works on both browsers and Node.js
 
 ## API
 
