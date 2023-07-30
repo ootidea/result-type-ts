@@ -57,6 +57,21 @@ test('match', () => {
   ).toBe('error')
 })
 
+test('map', () => {
+  const success = Result.success(123) as Result<number, string>
+  expect(success.map((value) => -value)).toStrictEqual(Result.success(-123))
+
+  const failure = Result.failure('error') as Result<number, string>
+  expect(failure.map((value) => -value)).toBe(failure)
+})
+test('mapError', () => {
+  const success = Result.success(123) as Result<number, string>
+  expect(success.mapError((error) => -error)).toBe(success)
+
+  const failure = Result.failure('error') as Result<number, string>
+  expect(failure.mapError((error) => '> ' + error)).toStrictEqual(Result.failure('> error'))
+})
+
 test('tryCatch', () => {
   const success = Result.tryCatch(() => 123)
   expect(success.isSuccess).toBe(true)
