@@ -7,11 +7,12 @@ This library provides a sophisticated set of utilities about Result type.
 
 ### Functions
 
-|                   | Type                                 | Description                                                                                                           |
-|-------------------|--------------------------------------|-----------------------------------------------------------------------------------------------------------------------|
-| `Result.success`  | `<T>(value: T) => Result.Success<T>` | Creates a success value.                                                                                              |
-| `Result.failure`  | `<E>(error: E) => Result.Failure<E>` | Creates a failure value.                                                                                              |
-| `Result.tryCatch` | `<T>(f: () => T) => Result<T>`       | Creates a success value if the function `f` returns a value, and a failure value if the function throws an exception. |
+|                      | Type                                                                 | Description                                                                                                           |
+|----------------------|----------------------------------------------------------------------|-----------------------------------------------------------------------------------------------------------------------|
+| `Result.success`     | `<T>(value: T) => Result.Success<T>`                                 | Creates a success value.                                                                                              |
+| `Result.failure`     | `<E>(error: E) => Result.Failure<E>`                                 | Creates a failure value.                                                                                              |
+| `Result.tryCatch`    | `<T>(f: () => T) => Result<T>`                                       | Creates a success value if the function `f` returns a value, and a failure value if the function throws an exception. |
+| `Result.fromNullish` | `<T>(value: T \| null \| undefined) => Result<T, null \| undefined>` | Convert a nullish value to a Result value.                                                                            |
 
 ### Types
 

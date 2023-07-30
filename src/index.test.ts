@@ -1,4 +1,4 @@
-import { expect, test } from 'vitest'
+import { expect, expectTypeOf, test } from 'vitest'
 import { Result } from './index'
 
 test('Properties', () => {
@@ -90,4 +90,18 @@ test('tryCatch', () => {
   })
   expect(failure.isFailure).toBe(true)
   expect(failure.error instanceof Error && failure.error.message).toBe('error')
+})
+
+test('fromNullish', () => {
+  const nonNullishValue = Result.fromNullish(123 as number | null)
+  expect(nonNullishValue.value).toBe(123)
+  expectTypeOf(nonNullishValue).toEqualTypeOf<Result<number, null>>()
+
+  const nonNullishType = Result.fromNullish(123)
+  expect(nonNullishType.value).toBe(123)
+  expectTypeOf(nonNullishType).toEqualTypeOf<Result<number, never>>()
+
+  const nullType = Result.fromNullish(null)
+  expect(nullType.error).toBe(null)
+  expectTypeOf(nullType).toEqualTypeOf<Result<never, null>>()
 })

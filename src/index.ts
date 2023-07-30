@@ -89,4 +89,15 @@ export namespace Result {
   export function failure<E>(error: E): Failure<E> {
     return new Failure(error)
   }
+
+  export function fromNullish(value: null): Result<never, null>
+  export function fromNullish(value: undefined): Result<never, undefined>
+  export function fromNullish(value: null | undefined): Result<never, null | undefined>
+  export function fromNullish<T extends {}>(value: T): Result<T, never>
+  export function fromNullish<T>(value: T | null): Result<T, null>
+  export function fromNullish<T>(value: T | undefined): Result<T, undefined>
+  export function fromNullish<T>(value: T | null | undefined): Result<T, null | undefined>
+  export function fromNullish<T>(value: T | null | undefined) {
+    return value != null ? new Success(value) : new Failure(value)
+  }
 }
