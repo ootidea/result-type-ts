@@ -185,7 +185,7 @@ const result: Result<number, string> = Math.random() > 0.5 ? Result.success(123)
   </tr>
   <tr>
     <td><b>Description</b></td>
-    <td>The payload of the success value.</td>
+    <td>The payload of the result value, which could be either <code>result.value</code> or <code>result.error</code></td>
   </tr>
 </table>
 
@@ -391,7 +391,7 @@ console.log(result2.ifFailure((error) => error + '!')) // error!
   </tr>
   <tr>
     <td><b>Description</b></td>
-    <td>Applies specified functions to either a success value or a failure value, returning the result of the applied function.</td>
+    <td>Return the result of applying one of the given functions to the payload.</td>
   </tr>
 </table>
 
