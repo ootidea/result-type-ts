@@ -14,6 +14,7 @@ A TypeScript library for the `Result<T, E>` type, which is supported in modern l
 <details>
 <summary><code>Result.success(value)</code></summary>
 
+<br>
 <table>
   <tr>
     <td><b>Type</b></td>
@@ -35,6 +36,7 @@ console.log(result.value) // 123
 <details>
 <summary><code>Result.failure(error)</code></summary>
 
+<br>
 <table>
   <tr>
     <td><b>Type</b></td>
@@ -56,6 +58,7 @@ console.log(result.error) // error
 <details>
 <summary><code>Result.tryCatch(f)</code></summary>
 
+<br>
 <table>
   <tr>
     <td><b>Type</b></td>
@@ -82,6 +85,7 @@ console.log(result2.error) // error
 <details>
 <summary><code>Result.fromNullish(value)</code></summary>
 
+<br>
 <table>
   <tr>
     <td><b>Type</b></td>
@@ -106,6 +110,7 @@ console.log(result2.error) // undefined
 <details>
 <summary><code>Result.fromPromise(promise)</code></summary>
 
+<br>
 <table>
   <tr>
     <td><b>Type</b></td>
@@ -132,12 +137,8 @@ console.log(result2.error) // error
 <details>
 <summary><code>Result.Success&lt;T&gt;</code></summary>
 
-<table>
-  <tr>
-    <td><b>Description</b></td>
-    <td>The type of a success value holding a value of type `T`.</td>
-  </tr>
-</table>
+<br>
+The type of a success value holding a value of type `T`.
 
 #### Example
 ```ts
@@ -148,12 +149,8 @@ const result: Result.Success<number> = Result.success(123)
 <details>
 <summary><code>Result.Failure&lt;E&gt;</code></summary>
 
-<table>
-  <tr>
-    <td><b>Description</b></td>
-    <td>The type of a failure value holding an error value of type `E`.</td>
-  </tr>
-</table>
+<br>
+The type of a failure value holding an error value of type `E`.
 
 #### Example
 ```ts
@@ -164,12 +161,8 @@ const result: Result.Failure<string> = Result.failure('error')
 <details>
 <summary><code>Result&lt;T, E&gt;</code></summary>
 
-<table>
-  <tr>
-    <td><b>Description</b></td>
-    <td>Shorthand for `Result.Success&lt;T&gt; | Result.Failure&lt;E&gt;` type. `E` is optional with a default value of `unknown`.</td>
-  </tr>
-</table>
+<br>
+Shorthand for `Result.Success&lt;T&gt; | Result.Failure&lt;E&gt;` type. `E` is optional with a default value of `unknown`.
 
 #### Example
 ```ts
@@ -182,6 +175,7 @@ const result: Result<number, string> = Math.random() > 0.5 ? Result.success(123)
 <details>
 <summary><code>result.value</code></summary>
 
+<br>
 <table>
   <tr>
     <td><b>Type</b></td>
@@ -206,6 +200,7 @@ console.log(result2.value) // undefined
 <details>
 <summary><code>result.error</code></summary>
 
+<br>
 <table>
   <tr>
     <td><b>Type</b></td>
@@ -230,6 +225,7 @@ console.log(result2.error) // error
 <details>
 <summary><code>result.payload</code></summary>
 
+<br>
 <table>
   <tr>
     <td><b>Type</b></td>
@@ -254,6 +250,7 @@ console.log(result2.payload) // error
 <details>
 <summary><code>result.isSuccess</code></summary>
 
+<br>
 <table>
   <tr>
     <td><b>Type</b></td>
@@ -278,6 +275,7 @@ console.log(result2.isSuccess) // false
 <details>
 <summary><code>result.isFailure</code></summary>
 
+<br>
 <table>
   <tr>
     <td><b>Type</b></td>
@@ -304,6 +302,7 @@ console.log(result2.isFailure) // true
 <details>
 <summary><code>result.getOrThrow()</code></summary>
 
+<br>
 <table>
   <tr>
     <td><b>Type</b></td>
@@ -332,6 +331,7 @@ try {
 <details>
 <summary><code>result.ifSuccess(f)</code></summary>
 
+<br>
 <table>
   <tr>
     <td><b>Type</b></td>
@@ -356,6 +356,7 @@ console.log(result2.ifSuccess((value) => value * 2)) // undefined
 <details>
 <summary><code>result.ifFailure(f)</code></summary>
 
+<br>
 <table>
   <tr>
     <td><b>Type</b></td>
@@ -380,6 +381,7 @@ console.log(result2.ifFailure((error) => error + '!')) // error!
 <details>
 <summary><code>result.match(f, g)</code></summary>
 
+<br>
 <table>
   <tr>
     <td><b>Type</b></td>
@@ -404,6 +406,7 @@ console.log(result2.match((value) => value * 2, (error) => error + '!')) // erro
 <details>
 <summary><code>result.map(f)</code></summary>
 
+<br>
 <table>
   <tr>
     <td><b>Type</b></td>
@@ -428,6 +431,7 @@ console.log(result2.error) // error
 <details>
 <summary><code>result.mapError(f)</code></summary>
 
+<br>
 <table>
   <tr>
     <td><b>Type</b></td>
@@ -452,6 +456,7 @@ console.log(result2.error) // error!
 <details>
 <summary><code>result.flatMap(f)</code></summary>
 
+<br>
 <table>
   <tr>
     <td><b>Type</b></td>
