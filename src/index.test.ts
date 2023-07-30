@@ -107,3 +107,11 @@ test('fromNullish', () => {
   expect(nullType.error).toBe(null)
   expectTypeOf(nullType).toEqualTypeOf<Result<never, null>>()
 })
+
+test('fromPromise', () => {
+  const successPromise = Result.fromPromise(Promise.resolve(123))
+  expect(successPromise).resolves.toStrictEqual(Result.success(123))
+
+  const failurePromise = Result.fromPromise(Promise.reject('error'))
+  expect(failurePromise).resolves.toStrictEqual(Result.failure('error'))
+})

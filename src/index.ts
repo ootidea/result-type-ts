@@ -108,4 +108,12 @@ export namespace Result {
   export function fromNullish<const T>(value: T | null | undefined) {
     return value != null ? new Success(value) : new Failure(value)
   }
+
+  export async function fromPromise<T>(promise: PromiseLike<T>): Promise<Result<T>> {
+    try {
+      return new Success(await promise)
+    } catch (error) {
+      return new Failure(error)
+    }
+  }
 }
