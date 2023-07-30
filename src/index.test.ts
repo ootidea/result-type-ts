@@ -99,7 +99,7 @@ test('fromNullish', () => {
 
   const nonNullishType = Result.fromNullish(123)
   expect(nonNullishType.value).toBe(123)
-  expectTypeOf(nonNullishType).toEqualTypeOf<Result<number, never>>()
+  expectTypeOf(nonNullishType).toEqualTypeOf<Result<123, never>>()
 
   const nullType = Result.fromNullish(null)
   expect(nullType.error).toBe(null)
