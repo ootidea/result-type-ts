@@ -77,7 +77,7 @@ const result = Result.tryCatch(() => 123)
 console.log(result.value) // 123
 
 const result2 = Result.tryCatch(() => {
-  throw new Error('error')
+  throw 'error'
 })
 console.log(result2.error) // error
 ```
