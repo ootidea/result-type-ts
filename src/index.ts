@@ -1,28 +1,7 @@
 export type Result<T, E = unknown> = Result.Success<T> | Result.Failure<E>
 
 export namespace Result {
-  interface Base<T, E> {
-    readonly value?: T
-    readonly error?: E
-    readonly isSuccess: boolean
-    readonly isFailure: boolean
-
-    getOrThrow(): T
-
-    ifSuccess<T2>(f: (value: T) => T2): T2 | undefined
-    ifFailure<E2>(f: (value: E) => E2): E2 | undefined
-
-    match<T2, E2>(f: (value: T) => T2, g: (error: E) => E2): T2 | E2
-
-    map<T2>(f: (value: T) => T2): Result<T2, E>
-    mapError<E2>(f: (error: E) => E2): Result<T, E2>
-
-    flatMap<T2, E2>(f: (value: T) => Success<T2>): Result<T2, E2>
-    flatMap<T2, E2>(f: (value: T) => Failure<E2>): Failure<E> | Failure<E2>
-    flatMap<T2, E2>(f: (value: T) => Result<T2, E2>): Result<T2, E | E2>
-  }
-
-  export class Success<T> implements Base<T, never> {
+  export class Success<T> {
     constructor(readonly value: T) {}
 
     readonly error?: never
@@ -60,7 +39,7 @@ export namespace Result {
     }
   }
 
-  export class Failure<E> implements Base<never, E> {
+  export class Failure<E> {
     constructor(readonly error: E) {}
 
     readonly value?: never
