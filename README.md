@@ -69,10 +69,13 @@ console.log(result.error) // error
 
 #### Example
 ```ts
-const result = Result.tryCatch(() => {
+const result = Result.tryCatch(() => 123)
+console.log(result.value) // 123
+
+const result2 = Result.tryCatch(() => {
   throw new Error('error')
 })
-console.log(result.error) // Error: error
+console.log(result2.error) // error
 ```
 </details>
 
@@ -92,8 +95,11 @@ console.log(result.error) // Error: error
 
 #### Example
 ```ts
-console.log(Result.fromNullish(123).value) // 123
-console.log(Result.fromNullish(null).error) // null
+const result = Result.fromNullish(123);
+console.log(result.value) // 123
+
+const result2 = Result.fromNullish(undefined);
+console.log(result2.error) // undefined
 ```
 </details>
 
