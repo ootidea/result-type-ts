@@ -6,6 +6,7 @@ A TypeScript library for the `Result<T, E>` type, which is supported in modern l
 - Provides many sophisticated functions, properties, and methods
 - Well-tested
 - Works on both browsers and Node.js
+- Strict type inference (requires TypeScript version 5.0 or higher)
 
 ## API
 
@@ -66,7 +67,7 @@ console.log(result.error) // error
   </tr>
   <tr>
     <td><b>Description</b></td>
-    <td>Creates a success value if the function `f` returns a value, and a failure value if the function throws an exception.</td>
+    <td>Creates a success value if the function <code>f</code> returns a value, and a failure value if the function throws an exception.</td>
   </tr>
 </table>
 
@@ -138,7 +139,7 @@ console.log(result2.error) // error
 <summary><code>Result.Success&lt;T&gt;</code></summary>
 
 <br>
-The type of a success value holding a value of type `T`.
+The type of a success value holding a value of type <code>T</code>.
 
 #### Example
 ```ts
@@ -150,7 +151,7 @@ const result: Result.Success<number> = Result.success(123)
 <summary><code>Result.Failure&lt;E&gt;</code></summary>
 
 <br>
-The type of a failure value holding an error value of type `E`.
+The type of a failure value holding an error value of type <code>E</code>.
 
 #### Example
 ```ts
@@ -162,7 +163,7 @@ const result: Result.Failure<string> = Result.failure('error')
 <summary><code>Result&lt;T, E&gt;</code></summary>
 
 <br>
-Shorthand for `Result.Success&lt;T&gt; | Result.Failure&lt;E&gt;` type. `E` is optional with a default value of `unknown`.
+Shorthand for <code>Result.Success&lt;T&gt; | Result.Failure&lt;E&gt;</code> type. <code>E</code> is optional with a default value of <code>unknown</code>.
 
 #### Example
 ```ts
@@ -310,7 +311,7 @@ console.log(result2.isFailure) // true
   </tr>
   <tr>
     <td><b>Description</b></td>
-    <td>Returns `result.value` if it's a success value, otherwise throws `result.error`.</td>
+    <td>Returns <code>result.value</code> if it's a success value, otherwise throws <code>result.error</code>.</td>
   </tr>
 </table>
 
@@ -339,7 +340,7 @@ try {
   </tr>
   <tr>
     <td><b>Description</b></td>
-    <td>Applies the function `f` to `result.value` if it's a success value, otherwise returns `undefined`.</td>
+    <td>Applies the function <code>f</code> to <code>result.value</code> if it's a success value, otherwise returns <code>undefined</code>.</td>
   </tr>
 </table>
 
@@ -364,7 +365,7 @@ console.log(result2.ifSuccess((value) => value * 2)) // undefined
   </tr>
   <tr>
     <td><b>Description</b></td>
-    <td>Applies the function `f` to `result.error` if it's a failure value, otherwise returns `undefined`.</td>
+    <td>Applies the function <code>f</code> to <code>result.error</code> if it's a failure value, otherwise returns <code>undefined</code>.</td>
   </tr>
 </table>
 
@@ -414,7 +415,7 @@ console.log(result2.match((value) => value * 2, (error) => error + '!')) // erro
   </tr>
   <tr>
     <td><b>Description</b></td>
-    <td>Creates a Result value by modifying the payload of the success value using the function `f`</td>
+    <td>Creates a Result value by modifying the payload of the success value using the function <code>f</code></td>
   </tr>
 </table>
 
@@ -439,7 +440,7 @@ console.log(result2.error) // error
   </tr>
   <tr>
     <td><b>Description</b></td>
-    <td>Creates a Result value by modifying the payload of the failure value using the function `f`</td>
+    <td>Creates a Result value by modifying the payload of the failure value using the function <code>f</code></td>
   </tr>
 </table>
 
