@@ -9,6 +9,10 @@ export namespace Result {
     readonly isSuccess = true
     readonly isFailure = false
 
+    get payload(): T {
+      return this.value
+    }
+
     getOrThrow(): T {
       return this.value
     }
@@ -46,6 +50,10 @@ export namespace Result {
 
     readonly isSuccess = false
     readonly isFailure = true
+
+    get payload(): E {
+      return this.error
+    }
 
     getOrThrow(): never {
       throw this.error

@@ -28,6 +28,7 @@ This library provides a sophisticated set of utilities about Result type.
 |--------------------|------------------|-----------------------------------|
 | `result.value`     | `T \| undefined` | The payload of the success value. |
 | `result.error`     | `E \| undefined` | The payload of the failure value. |
+| `result.payload`   | `T \| E`         | The payload of the result value.  |
 | `result.isSuccess` | `boolean`        | Whether it is a success value.    |
 | `result.isFailure` | `boolean`        | Whether it is a failure value.    |
 
