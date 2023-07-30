@@ -17,7 +17,7 @@ A TypeScript library for the `Result<T, E>` type, which is supported in modern l
 <table>
   <tr>
     <td><b>Type</b></td>
-    <td><code>&lt;T&gt;(value: T) => Result.Success&lt;T&gt;</code></td>
+    <td><code>&lt;const T&gt;(value: T) => Result.Success&lt;T&gt;</code></td>
   </tr>
   <tr>
     <td><b>Description</b></td>
@@ -38,7 +38,7 @@ console.log(result.value) // 123
 <table>
   <tr>
     <td><b>Type</b></td>
-    <td><code>&lt;E&gt;(error: E) =&gt; Result.Failure&lt;E&gt;</code></td>
+    <td><code>&lt;const E&gt;(error: E) =&gt; Result.Failure&lt;E&gt;</code></td>
   </tr>
   <tr>
     <td><b>Description</b></td>
@@ -82,7 +82,7 @@ console.log(result.error) // Error: error
 <table>
   <tr>
     <td><b>Type</b></td>
-     <td><code>&lt;T&gt;(value: T | null | undefined) =&gt; Result&lt;T, null | undefined&gt;</code></td>
+     <td><code>&lt;const T&gt;(value: T | null | undefined) =&gt; Result&lt;T, null | undefined&gt;</code></td>
   </tr>
   <tr>
     <td><b>Description</b></td>
