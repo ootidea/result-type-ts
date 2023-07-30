@@ -474,7 +474,7 @@ console.log(result2.error) // error!
 const result = Result.success(123).flatMap((value) => Result.success(value * 2))
 console.log(result.value) // 246
 
-const result2 = Result.failure('error').flatMap((value) => Result.success(value * 2))
+const result2 = Result.failure('error').flatMap((value) => Result.failure(value * 2))
 console.log(result2.error) // error
 ```
 </details>
