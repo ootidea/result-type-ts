@@ -12,144 +12,161 @@ A TypeScript library for the `Result<T, E>` type, which is supported in modern l
 ### Functions
 
 <details>
-<summary> `Result.success` </summary>
+<summary><code>Result.success</code></summary>
 
-- Type: `<T>(value: T) => Result.Success<T>`
-- Description: Creates a success value.
+Type: `<T>(value: T) => Result.Success<T>`
+<br>
+Creates a success value.
 </details>
 
 <details>
-<summary>`Result.failure`</summary>
+<summary><code>Result.failure</code></summary>
 
-- Type: `<E>(error: E) => Result.Failure<E>`
-- Description: Creates a failure value.
+Type: `<E>(error: E) => Result.Failure<E>`
+<br>
+Creates a failure value.
 </details>
 
 <details>
-<summary>`Result.tryCatch`</summary>
+<summary><code>Result.tryCatch</code></summary>
 
-- Type: `<T>(f: () => T) => Result<T>`
-- Description: Creates a success value if the function `f` returns a value, and a failure value if the function throws an exception.
+Type: `<T>(f: () => T) => Result<T>`
+<br>
+Creates a success value if the function `f` returns a value, and a failure value if the function throws an exception.
 </details>
 
 <details>
-<summary>`Result.fromNullish`</summary>
+<summary><code>Result.fromNullish</code></summary>
 
-- Type: `<T>(value: T \| null \| undefined) => Result<T, null \| undefined>`
-- Description: Convert a nullish value to a Result value.
+Type: `<T>(value: T | null | undefined) => Result<T, null | undefined>`
+<br>
+Convert a nullish value to a Result value.
 </details>
 
 <details>
-<summary>`Result.fromPromise`</summary>
+<summary><code>Result.fromPromise</code></summary>
 
-- Type: `<T>(promise: PromiseLike<T>) => Promise<Result<T>>`
-- Description: Convert a Promise value to a Result value.
+Type: `<T>(promise: PromiseLike<T>) => Promise<Result<T>>`
+<br>
+Convert a Promise value to a Result value.
 </details>
 
 ### Types
 
 <details>
-<summary>`Result.Success&lt;T&gt;`</summary>
+<summary><code>Result.Success&lt;T&gt;</code></summary>
 
-- Description: The type of a success value holding a value of type `T`.
+The type of a success value holding a value of type `T`.
 </details>
 
 <details>
-<summary>`Result.Failure&lt;E&gt;`</summary>
+<summary><code>Result.Failure&lt;E&gt;</code></summary>
 
-- Description: The type of a failure value holding an error value of type `E`.
+The type of a failure value holding an error value of type `E`.
 </details>
 
 <details>
-<summary>`Result&lt;T, E&gt;`</summary>
+<summary><code>Result&lt;T, E&gt;</code></summary>
 
-- Description: Shorthand for `Result.Success<T> \| Result.Failure<E>` type. `E` is optional with a default value of `unknown`.
+Shorthand for `Result.Success<T> | Result.Failure<E>` type. `E` is optional with a default value of `unknown`.
 </details>
 
 ### Properties
 
 <details>
-<summary>`result.value`</summary>
+<summary><code>result.value</code></summary>
 
-- Type: `T \| undefined`
-- Description: The payload of the success value.
+Type: `T | undefined`
+<br>
+The payload of the success value.
 </details>
 
 <details>
-<summary>`result.error`</summary>
+<summary><code>result.error</code></summary>
 
-- Type: `E \| undefined`
-- Description: The payload of the failure value.
+Type: `E | undefined`
+<br>
+The payload of the failure value.
 </details>
 
 <details>
-<summary>`result.payload`</summary>
+<summary><code>result.payload</code></summary>
 
-- Type: `T \| E`
-- Description: The payload of the result value.
+Type: `T | E`
+<br>
+The payload of the result value.
 </details>
 
 <details>
-<summary>`result.isSuccess`</summary>
+<summary><code>result.isSuccess</code></summary>
 
-- Type: `boolean`
-- Description: Whether it is a success value.
+Type: `boolean`
+<br>
+Whether it is a success value.
 </details>
 
 <details>
-<summary>`result.isFailure`</summary>
+<summary><code>result.isFailure</code></summary>
 
-- Type: `boolean`
-- Description: Whether it is a failure value.
+Type: `boolean`
+<br>
+Whether it is a failure value.
 </details>
 
 ### Methods
 
 <details>
-<summary>`result.getOrThrow`</summary>
+<summary><code>result.getOrThrow</code></summary>
 
-- Type: `() => T`
-- Description: Returns `result.value` if it's a success value, otherwise throws `result.error`.
+Type: `() => T`
+<br>
+Returns `result.value` if it's a success value, otherwise throws `result.error`.
 </details>
 
 <details>
-<summary>`result.ifSuccess`</summary>
+<summary><code>result.ifSuccess</code></summary>
 
-- Type: `<T2>(f: (value: T) => T2) => T2 \| undefined`
-- Description: Applies the function `f` to `result.value` if it's a success value, otherwise returns `undefined`.
+Type: `<T2>(f: (value: T) => T2) => T2 | undefined`
+<br>
+Applies the function `f` to `result.value` if it's a success value, otherwise returns `undefined`.
 </details>
 
 <details>
-<summary>`result.ifFailure`</summary>
+<summary><code>result.ifFailure</code></summary>
 
-- Type: `<E2>(f: (error: E) => E2) => E2 \| undefined`
-- Description: Applies the function `f` to `result.error` if it's a failure value, otherwise returns `undefined`.
+Type: `<E2>(f: (error: E) => E2) => E2 | undefined`
+<br>
+Applies the function `f` to `result.error` if it's a failure value, otherwise returns `undefined`.
 </details>
 
 <details>
-<summary>`result.match`</summary>
+<summary><code>result.match</code></summary>
 
-- Type: `<T2, E2>((value: T) => T2, (error: E) => E2) => T2 \| E2`
-- Description: Applies specified functions to either a success value or a failure value, returning the result of the applied function.
+Type: `<T2, E2>((value: T) => T2, (error: E) => E2) => T2 | E2`
+<br>
+Applies specified functions to either a success value or a failure value, returning the result of the applied function.
 </details>
 
 <details>
-<summary>`result.map`</summary>
+<summary><code>result.map</code></summary>
 
-- Type: `<T2>(f: (value: T) => T2) => Result<T2, E>`
-- Description: Creates a Result value by modifying the payload of the success value using the function `f`
+Type: `<T2>(f: (value: T) => T2) => Result<T2, E>`
+<br>
+Creates a Result value by modifying the payload of the success value using the function `f`
 </details>
 
 <details>
-<summary>`result.mapError`</summary>
+<summary><code>result.mapError</code></summary>
 
-- Type: `<E2>(f: (error: E) => E2) => Result<T, E2>`
-- Description: Creates a Result value by modifying the payload of the failure value using the function `f`
+Type: `<E2>(f: (error: E) => E2) => Result<T, E2>`
+<br>
+Creates a Result value by modifying the payload of the failure value using the function `f`
 </details>
 
 <details>
-<summary>`result.flatMap`</summary>
+<summary><code>result.flatMap</code></summary>
 
-- Type: `<T2, E2>(f: (value: T) => Result<T2, E2>) => Result<T2, E2> \| Result.Failure<E>`
-- Description: Maps the payload of the success value and flattens the nested Result type.
+Type: `<T2, E2>(f: (value: T) => Result<T2, E2>) => Result<T2, E2> | Result.Failure<E>`
+<br>
+Maps the payload of the success value and flattens the nested Result type.
 </details>
