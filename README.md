@@ -6,7 +6,7 @@ A TypeScript library for the `Result<T, E>` type, which is supported in modern l
 - Provides many sophisticated functions, properties, and methods
 - Well-tested
 - Works on both browsers and Node.js
-- Strict type inference (requires TypeScript version 5.0 or higher)
+- Strict type inference (requires TypeScript 5.0 or higher)
 
 ## API
 
