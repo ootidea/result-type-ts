@@ -479,3 +479,31 @@ const result2 = Result.failure('error').flatMap((value) => Result.failure(value 
 console.log(result2.error) // error
 ```
 </details>
+
+<details>
+<summary><code>result.assertErrorInstanceOf(ctor)</code></summary>
+
+<br>
+<table>
+  <tr>
+    <td><b>Type</b></td>
+    <td><code>&lt;C extends abstract new (..._: any) => any>(ctor: C) => Result&lt;T, InstanceType&lt;C>></code></td>
+  </tr>
+  <tr>
+    <td><b>Description</b></td>
+    <td>Perform a safe cast of the error type to the given class. If the payload of the failure value is not instance of <code>ctor</code>, throws <code>TypeError</code></td>
+  </tr>
+</table>
+
+#### Example
+```ts
+const result: Result<number, Error> = Result.tryCatch(() => {
+  if (Math.random() >= 0) {
+    throw new Error('error')
+  } else {
+    return 123
+  }
+}).assertErrorInstanceOf(Error)
+console.log(result.isFailure && result.error.message) // error
+```
+</details>

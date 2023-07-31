@@ -81,6 +81,29 @@ function flatMap<T, E, T2, E2>(this: Result<T, E>, f: (value: T) => Result<T2, E
   return f(this.value)
 }
 
+function assertErrorInstanceOf<T, C extends abstract new (..._: any) => any>(
+  this: Success<T>,
+  ctor: C,
+): Success<T>
+function assertErrorInstanceOf<E, C extends abstract new (..._: any) => any>(
+  this: Failure<E>,
+  ctor: C,
+): Failure<E & InstanceType<C>>
+function assertErrorInstanceOf<T, E, C extends abstract new (..._: any) => any>(
+  this: Result<T, E>,
+  ctor: C,
+): Result<T, E & InstanceType<C>>
+function assertErrorInstanceOf<T, E, C extends abstract new (..._: any) => any>(
+  this: Result<T, E>,
+  ctor: C,
+): Result<T, E & InstanceType<C>> {
+  if (this.isSuccess) return this
+
+  if (this.error instanceof ctor) return this as any
+
+  throw new TypeError(`Assertion failed: Expected error to be an instance of ${ctor.name}.`)
+}
+
 export const prototype = {
   getOrThrow,
   toUnion,
@@ -90,6 +113,7 @@ export const prototype = {
   map,
   mapError,
   flatMap,
+  assertErrorInstanceOf,
 } as const
 
 export type Success<T> = typeof prototype & {

@@ -113,3 +113,12 @@ test('fromPromise', () => {
   const failurePromise = Result.fromPromise(Promise.reject('error'))
   expect(failurePromise).resolves.toStrictEqual(Result.failure('error'))
 })
+
+test('assertErrorInstanceOf', () => {
+  const success = Result.success(123) as Result<number>
+  expect(success.assertErrorInstanceOf(Error)).toBe(success)
+
+  const failure = Result.failure(new Error('error')) as Result<number>
+  expectTypeOf(failure.assertErrorInstanceOf(Error)).toEqualTypeOf<Result<number, Error>>()
+  expect(() => failure.assertErrorInstanceOf(URIError)).toThrow(TypeError)
+})
