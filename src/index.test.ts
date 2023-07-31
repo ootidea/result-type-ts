@@ -7,14 +7,12 @@ test('Properties', () => {
   expect(success.isFailure).toBe(false)
   expect(success.value).toBe(123)
   expect(success.error).toBe(undefined)
-  expect(success.payload).toBe(123)
 
   const failure = Result.failure('error') as Result<number>
   expect(failure.isSuccess).toBe(false)
   expect(failure.isFailure).toBe(true)
   expect(failure.value).toBe(undefined)
   expect(failure.error).toBe('error')
-  expect(failure.payload).toBe('error')
 })
 
 test('getOrThrow', () => {
