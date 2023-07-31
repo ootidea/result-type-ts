@@ -225,31 +225,6 @@ console.log(result2.error) // error
 </details>
 
 <details>
-<summary><code>result.payload</code></summary>
-
-<br>
-<table>
-  <tr>
-    <td><b>Type</b></td>
-    <td><code>T | E</code></td>
-  </tr>
-  <tr>
-    <td><b>Description</b></td>
-    <td>The payload of the result value.</td>
-  </tr>
-</table>
-
-#### Example
-```ts
-const result = Result.success(123)
-console.log(result.payload) // 123
-
-const result2 = Result.failure('error')
-console.log(result2.payload) // error
-```
-</details>
-
-<details>
 <summary><code>result.isSuccess</code></summary>
 
 <br>
@@ -327,6 +302,31 @@ try {
 } catch (e) {
   console.log(e) // error
 }
+```
+</details>
+
+<details>
+<summary><code>result.toUnion()</code></summary>
+
+<br>
+<table>
+  <tr>
+    <td><b>Type</b></td>
+    <td><code>() => T | E</code></td>
+  </tr>
+  <tr>
+    <td><b>Description</b></td>
+    <td>Returns the payload of the result value.</td>
+  </tr>
+</table>
+
+#### Example
+```ts
+const result = Result.success(123)
+console.log(result.toUnion()) // 123
+
+const result2 = Result.failure('error')
+console.log(result2.toUnion()) // error
 ```
 </details>
 

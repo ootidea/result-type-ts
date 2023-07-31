@@ -7,6 +7,15 @@ function getOrThrow<T, E>(this: Result<T, E>): T {
   throw this.error
 }
 
+function toUnion<T>(this: Success<T>): T
+function toUnion<E>(this: Failure<E>): E
+function toUnion<T, E>(this: Result<T, E>): T | E
+function toUnion<T, E>(this: Result<T, E>): T | E {
+  if (this.isSuccess) return this.value
+
+  return this.error
+}
+
 function ifSuccess<T, T2>(this: Success<T>, f: (value: T) => T2): T2
 function ifSuccess<T, E, T2>(this: Failure<E>, f: (value: T) => T2): undefined
 function ifSuccess<T, E, T2>(this: Result<T, E>, f: (value: T) => T2): T2 | undefined
@@ -74,6 +83,7 @@ function flatMap<T, E, T2, E2>(this: Result<T, E>, f: (value: T) => Result<T2, E
 
 export const prototype = {
   getOrThrow,
+  toUnion,
   ifSuccess,
   ifFailure,
   match,
