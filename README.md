@@ -462,7 +462,7 @@ console.log(result2.error) // error!
 <table>
   <tr>
     <td><b>Type</b></td>
-    <td><code>&lt;T2, E2>(f: (value: T) => Result&lt;T2, E2>) => Result&lt;T2, E2> | Result.Failure&lt;E></code></td>
+    <td><code>&lt;T2, E2>(f: (value: T) => Result&lt;T2, E2>) => Result&lt;T2, E | E2></code></td>
   </tr>
   <tr>
     <td><b>Description</b></td>
