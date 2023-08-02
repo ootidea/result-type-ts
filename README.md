@@ -23,7 +23,7 @@ A TypeScript library for the `Result<T, E>` type, which is supported in modern l
   </tr>
   <tr>
     <td><b>Description</b></td>
-    <td>Creates a success value.</td>
+    <td>Creates a success result.</td>
   </tr>
 </table>
 
@@ -45,7 +45,7 @@ console.log(result.value) // 123
   </tr>
   <tr>
     <td><b>Description</b></td>
-    <td>Creates a failure value.</td>
+    <td>Creates a failure result.</td>
   </tr>
 </table>
 
@@ -67,7 +67,7 @@ console.log(result.error) // error
   </tr>
   <tr>
     <td><b>Description</b></td>
-    <td>Creates a success value if the function <code>f</code> returns a value, and a failure value if the function throws an exception.</td>
+    <td>Creates a success result if the given function returns a value, and a failure result if the function throws an exception.</td>
   </tr>
 </table>
 
@@ -140,7 +140,7 @@ console.log(result2.error) // error
 <summary><code>Result.Success&lt;T&gt;</code></summary>
 
 <br>
-The type of a success value holding a value of type <code>T</code>.
+The type of a success result holding a value of type <code>T</code>.
 
 #### Example
 ```ts
@@ -152,7 +152,7 @@ const result: Result.Success<number> = Result.success(123)
 <summary><code>Result.Failure&lt;E&gt;</code></summary>
 
 <br>
-The type of a failure value holding an error value of type <code>E</code>.
+The type of a failure result holding an error value of type <code>E</code>.
 
 #### Example
 ```ts
@@ -185,7 +185,7 @@ const result: Result<number, string> = Math.random() > 0.5 ? Result.success(123)
   </tr>
   <tr>
     <td><b>Description</b></td>
-    <td>The payload of the result value, which could be either <code>result.value</code> or <code>result.error</code></td>
+    <td>The payload of the success result. If the result is a failure, it's <code>undefined</code>.</td>
   </tr>
 </table>
 
@@ -210,7 +210,7 @@ console.log(result2.value) // undefined
   </tr>
   <tr>
     <td><b>Description</b></td>
-    <td>The payload of the failure value.</td>
+    <td>The payload of the failure result.</td>
   </tr>
 </table>
 
@@ -235,7 +235,7 @@ console.log(result2.error) // error
   </tr>
   <tr>
     <td><b>Description</b></td>
-    <td>Whether it is a success value.</td>
+    <td>Whether it is a success result.</td>
   </tr>
 </table>
 
@@ -260,7 +260,7 @@ console.log(result2.isSuccess) // false
   </tr>
   <tr>
     <td><b>Description</b></td>
-    <td>Whether it is a failure value.</td>
+    <td>Whether it is a failure result.</td>
   </tr>
 </table>
 
@@ -287,7 +287,7 @@ console.log(result2.isFailure) // true
   </tr>
   <tr>
     <td><b>Description</b></td>
-    <td>Returns <code>result.value</code> if it's a success value, otherwise throws <code>result.error</code>.</td>
+    <td>Returns <code>result.value</code> if it's a success result, otherwise throws <code>result.error</code>.</td>
   </tr>
 </table>
 
@@ -341,7 +341,7 @@ console.log(result2.toUnion()) // error
   </tr>
   <tr>
     <td><b>Description</b></td>
-    <td>Applies the function <code>f</code> to <code>result.value</code> if it's a success value, otherwise returns <code>undefined</code>.</td>
+    <td>Applies the given function to <code>this.value</code> if it's a success result, otherwise returns <code>undefined</code>.</td>
   </tr>
 </table>
 
@@ -366,7 +366,7 @@ console.log(result2.ifSuccess((value) => value * 2)) // undefined
   </tr>
   <tr>
     <td><b>Description</b></td>
-    <td>Applies the function <code>f</code> to <code>result.error</code> if it's a failure value, otherwise returns <code>undefined</code>.</td>
+    <td>Applies the given function to <code>result.error</code> if it's a failure result, otherwise returns <code>undefined</code>.</td>
   </tr>
 </table>
 
@@ -416,7 +416,7 @@ console.log(result2.match((value) => value * 2, (error) => error + '!')) // erro
   </tr>
   <tr>
     <td><b>Description</b></td>
-    <td>Creates a Result value by modifying the payload of the success value using the function <code>f</code></td>
+    <td>Creates a Result value by modifying the payload of the success result using the given function</td>
   </tr>
 </table>
 
@@ -441,7 +441,7 @@ console.log(result2.error) // error
   </tr>
   <tr>
     <td><b>Description</b></td>
-    <td>Creates a Result value by modifying the payload of the failure value using the function <code>f</code></td>
+    <td>Creates a Result value by modifying the payload of the failure result using the given function</td>
   </tr>
 </table>
 
@@ -466,7 +466,7 @@ console.log(result2.error) // error!
   </tr>
   <tr>
     <td><b>Description</b></td>
-    <td>Maps the payload of the success value and flattens the nested Result type.</td>
+    <td>Maps the payload of the success result and flattens the nested Result type.</td>
   </tr>
 </table>
 
@@ -491,7 +491,7 @@ console.log(result2.error) // error
   </tr>
   <tr>
     <td><b>Description</b></td>
-    <td>Perform a safe cast of the error type to the given class. If the payload of the failure value is not instance of <code>ctor</code>, throws <code>TypeError</code></td>
+    <td>Perform a safe cast of the error type to the given class. If the payload of the failure result is not instance of <code>ctor</code>, throws <code>TypeError</code></td>
   </tr>
 </table>
 
