@@ -139,7 +139,7 @@ export namespace Result {
     return withPrototype({ error, isSuccess: false, isFailure: true }, prototype)
   }
 
-  export function tryCatch<T>(f: () => T): Result<T> {
+  export function tryCatch<T>(f: () => T): Result<T, unknown> {
     try {
       return success(f())
     } catch (error) {

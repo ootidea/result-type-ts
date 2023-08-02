@@ -63,7 +63,7 @@ console.log(result.error) // error
 <table>
   <tr>
     <td><b>Type</b></td>
-    <td><code>&lt;T&gt;(f: () =&gt; T) =&gt; Result&lt;T&gt;</code></td>
+    <td><code>&lt;T&gt;(f: () =&gt; T) =&gt; Result&lt;T, unknown&gt;</code></td>
   </tr>
   <tr>
     <td><b>Description</b></td>
