@@ -67,7 +67,7 @@ console.log(result.error) // error
   </tr>
   <tr>
     <td><b>Description</b></td>
-    <td>Creates a success result if the given function returns a value, and a failure result if the function throws an exception.</td>
+    <td>If the given function returns a value, a success result is created. If it throws an exception, a failure result is created.</td>
   </tr>
 </table>
 
