@@ -83,53 +83,53 @@ function flatMap<T, E, T2, E2>(this: Result<T, E>, f: (value: T) => Result<T2, E
 
 function assertErrorInstanceOf<T, C extends abstract new (..._: any) => any>(
   this: Success<T>,
-  ctor: C,
+  constructor: C,
 ): Success<T>
 function assertErrorInstanceOf<E, C extends abstract new (..._: any) => any>(
   this: Failure<E>,
-  ctor: C,
+  constructor: C,
 ): Failure<E & InstanceType<C>>
 function assertErrorInstanceOf<T, E, C extends abstract new (..._: any) => any>(
   this: Result<T, E>,
-  ctor: C,
+  constructor: C,
 ): Result<T, E & InstanceType<C>>
 function assertErrorInstanceOf<T, E, C extends abstract new (..._: any) => any>(
   this: Result<T, E>,
-  ctor: C,
+  constructor: C,
 ): Result<T, E & InstanceType<C>> {
   if (this.isSuccess) return this
 
-  if (this.error instanceof ctor) return this as any
+  if (this.error instanceof constructor) return this as any
 
-  throw new TypeError(`Assertion failed: Expected error to be an instance of ${ctor.name}.`)
+  throw new TypeError(`Assertion failed: Expected error to be an instance of ${constructor.name}.`)
 }
 
 export const prototype = {
   /**
-   * Returns `this.value` if `this` is a success result, otherwise throws `this.error`.
-   * @example Returns the payload of a success result.
+   * Returns `this.value` if `this` is a successful result, otherwise throws `this.error`.
+   * @example Returns the payload of a successful result.
    * Result.success(123).getOrThrow() // 123
-   * @example Throws the payload of a failure result.
+   * @example Throws the payload of a failed result.
    * Result.failure('error').getOrThrow() // throws 'error'
    */
   getOrThrow,
   /**
    * Returns the payload of the result.
-   * @example Returns the payload of a success result.
+   * @example Returns the payload of a successful result.
    * Result.success(123).toUnion() // 123
-   * @example Returns the payload of a failure result.
+   * @example Returns the payload of a failed result.
    * Result.failure('error').toUnion() // 'error'
    */
   toUnion,
   /**
-   * Applies the given function to this.value if it's a success result, otherwise returns undefined.
+   * Applies the given function to this.value if it's a successful result, otherwise returns undefined.
    * @example
    * Result.success(123).ifSuccess((x) => x * 2) // 246
    * Result.failure('error').ifSuccess((x: number) => x * 2) // undefined
    */
   ifSuccess,
   /**
-   * Applies the given function to this.error if it's a failure result, otherwise returns undefined.
+   * Applies the given function to this.error if it's a failed result, otherwise returns undefined.
    * @example
    * Result.success(123).ifFailure((x: string) => x + '!') // undefined
    * Result.failure('error').ifFailure((x) => x + '!') // 'error!'
@@ -143,21 +143,21 @@ export const prototype = {
    */
   match,
   /**
-   * Creates a Result value by modifying the payload of the success result using the given function.
+   * Creates a Result value by modifying the payload of the successful result using the given function.
    * @example
    * Result.success(123).map((x) => x * 2) // Result.success(246)
    * Result.failure('error').map((x: number) => x * 2) // Result.failure('error')
    */
   map,
   /**
-   * Creates a Result value by modifying the payload of the failure result using the given function.
+   * Creates a Result value by modifying the payload of the failed result using the given function.
    * @example
    * Result.success(123).mapError((x: string) => x + '!') // Result.success(123)
    * Result.failure('error').mapError((x) => x + '!') // Result.failure('error!')
    */
   mapError,
   /**
-   * Maps the payload of the success result and flattens the nested Result type.
+   * Maps the payload of the successful result and flattens the nested Result type.
    * @example
    * Result.success(123).flatMap((x) => Result.success(x * 2)) // Result.success(246)
    * Result.success(123).flatMap((x) => Result.failure('error')) // Result.failure('error')
@@ -166,7 +166,7 @@ export const prototype = {
    */
   flatMap,
   /**
-   * Perform a safe cast of the error type to the given class. If the payload of the failure result is not instance of ctor, throws TypeError.
+   * Perform a safe cast of the error type to the given class. If the payload of the failed result is not instance of constructor, throws TypeError.
    * @example
    * const result: Result<number, Error> = Result.tryCatch(() => {
    *   if (Math.random() >= 0) {
@@ -180,7 +180,7 @@ export const prototype = {
 } as const
 
 /**
- * The type of a success result.
+ * The type of a successful result.
  * @example
  * const success: Success<number> = Result.success(123)
  */
@@ -191,7 +191,7 @@ export type Success<T> = typeof prototype & {
   readonly isFailure: false
 }
 /**
- * The type of a failure result.
+ * The type of a failed result.
  * @example
  * const failure: Failure<string> = Result.failure('error')
  */
@@ -206,7 +206,7 @@ export type Result<T, E = unknown> = Success<T> | Failure<E>
 
 export namespace Result {
   /**
-   * Creates a success result.
+   * Creates a successful result.
    * @example
    * const result = Result.success(123)
    * console.log(result.value) // 123
@@ -216,7 +216,7 @@ export namespace Result {
   }
 
   /**
-   * Creates a failure result.
+   * Creates a failed result.
    * @example
    * const result = Result.failure('error')
    * console.log(result.error) // error
@@ -226,7 +226,7 @@ export namespace Result {
   }
 
   /**
-   * If the given function returns a value, a success result is created. If it throws an exception, a failure result is created.
+   * If the given function returns a value, a successful result is created. If it throws an exception, a failed result is created.
    * @example
    * const result = Result.tryCatch(() => 123)
    * console.log(result.value) // 123
