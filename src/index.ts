@@ -1,5 +1,5 @@
-function getOrThrow<T>(this: Success<T>): T
-function getOrThrow<E>(this: Failure<E>): never
+function getOrThrow<T>(this: Result.Success<T>): T
+function getOrThrow<E>(this: Result.Failure<E>): never
 function getOrThrow<T, E>(this: Result<T, E>): T
 function getOrThrow<T, E>(this: Result<T, E>): T {
   if (this.isSuccess) return this.value
@@ -7,8 +7,8 @@ function getOrThrow<T, E>(this: Result<T, E>): T {
   throw this.error
 }
 
-function toUnion<T>(this: Success<T>): T
-function toUnion<E>(this: Failure<E>): E
+function toUnion<T>(this: Result.Success<T>): T
+function toUnion<E>(this: Result.Failure<E>): E
 function toUnion<T, E>(this: Result<T, E>): T | E
 function toUnion<T, E>(this: Result<T, E>): T | E {
   if (this.isSuccess) return this.value
@@ -16,8 +16,8 @@ function toUnion<T, E>(this: Result<T, E>): T | E {
   return this.error
 }
 
-function ifSuccess<T, T2>(this: Success<T>, f: (value: T) => T2): T2
-function ifSuccess<T, E, T2>(this: Failure<E>, f: (value: T) => T2): undefined
+function ifSuccess<T, T2>(this: Result.Success<T>, f: (value: T) => T2): T2
+function ifSuccess<T, E, T2>(this: Result.Failure<E>, f: (value: T) => T2): undefined
 function ifSuccess<T, E, T2>(this: Result<T, E>, f: (value: T) => T2): T2 | undefined
 function ifSuccess<T, E, T2>(this: Result<T, E>, f: (value: T) => T2): T2 | undefined {
   if (this.isFailure) return undefined
@@ -25,8 +25,8 @@ function ifSuccess<T, E, T2>(this: Result<T, E>, f: (value: T) => T2): T2 | unde
   return f(this.value)
 }
 
-function ifFailure<T, E, E2>(this: Success<T>, f: (error: E) => E2): undefined
-function ifFailure<E, E2>(this: Failure<E>, f: (error: E) => E2): E2
+function ifFailure<T, E, E2>(this: Result.Success<T>, f: (error: E) => E2): undefined
+function ifFailure<E, E2>(this: Result.Failure<E>, f: (error: E) => E2): E2
 function ifFailure<T, E, E2>(this: Result<T, E>, f: (error: E) => E2): E2 | undefined
 function ifFailure<T, E, E2>(this: Result<T, E>, f: (error: E) => E2): E2 | undefined {
   if (this.isSuccess) return undefined
@@ -34,8 +34,8 @@ function ifFailure<T, E, E2>(this: Result<T, E>, f: (error: E) => E2): E2 | unde
   return f(this.error)
 }
 
-function match<T, E, T2, E2>(this: Success<T>, f: (value: T) => T2, g: (error: E) => E2): T2
-function match<T, E, T2, E2>(this: Failure<E>, f: (value: T) => T2, g: (error: E) => E2): E2
+function match<T, E, T2, E2>(this: Result.Success<T>, f: (value: T) => T2, g: (error: E) => E2): T2
+function match<T, E, T2, E2>(this: Result.Failure<E>, f: (value: T) => T2, g: (error: E) => E2): E2
 function match<T, E, T2, E2>(this: Result<T, E>, f: (value: T) => T2, g: (error: E) => E2): T2 | E2
 function match<T, E, T2, E2>(
   this: Result<T, E>,
@@ -47,8 +47,8 @@ function match<T, E, T2, E2>(
   return g(this.error)
 }
 
-function map<T, T2>(this: Success<T>, f: (value: T) => T2): Success<T2>
-function map<T, E, T2>(this: Failure<E>, f: (value: T) => T2): Failure<E>
+function map<T, T2>(this: Result.Success<T>, f: (value: T) => T2): Result.Success<T2>
+function map<T, E, T2>(this: Result.Failure<E>, f: (value: T) => T2): Result.Failure<E>
 function map<T, E, T2>(this: Result<T, E>, f: (value: T) => T2): Result<T2, E>
 function map<T, E, T2>(this: Result<T, E>, f: (value: T) => T2): Result<T2, E> {
   if (this.isFailure) return this
@@ -56,8 +56,8 @@ function map<T, E, T2>(this: Result<T, E>, f: (value: T) => T2): Result<T2, E> {
   return Result.success(f(this.value))
 }
 
-function mapError<T, E, E2>(this: Success<T>, f: (error: E) => E2): Success<T>
-function mapError<E, E2>(this: Failure<E>, f: (error: E) => E2): Failure<E2>
+function mapError<T, E, E2>(this: Result.Success<T>, f: (error: E) => E2): Result.Success<T>
+function mapError<E, E2>(this: Result.Failure<E>, f: (error: E) => E2): Result.Failure<E2>
 function mapError<T, E, E2>(this: Result<T, E>, f: (error: E) => E2): Result<T, E2>
 function mapError<T, E, E2>(this: Result<T, E>, f: (error: E) => E2): Result<T, E2> {
   if (this.isSuccess) return this
@@ -65,12 +65,27 @@ function mapError<T, E, E2>(this: Result<T, E>, f: (error: E) => E2): Result<T, 
   return Result.failure(f(this.error))
 }
 
-function flatMap<T, T2>(this: Success<T>, f: (value: T) => Success<T2>): Success<T2>
-function flatMap<T, E2>(this: Success<T>, f: (value: T) => Failure<E2>): Failure<E2>
-function flatMap<T, T2, E2>(this: Success<T>, f: (value: T) => Result<T2, E2>): Result<T2, E2>
-function flatMap<T, E, T2, E2>(this: Failure<E>, f: (value: T) => Result<T2, E2>): Failure<E>
-function flatMap<T, E, T2>(this: Result<T, E>, f: (value: T) => Success<T2>): Result<T2, E>
-function flatMap<T, E, T2, E2>(this: Result<T, E>, f: (value: T) => Failure<E2>): Failure<E | E2>
+function flatMap<T, T2>(
+  this: Result.Success<T>,
+  f: (value: T) => Result.Success<T2>,
+): Result.Success<T2>
+function flatMap<T, E2>(
+  this: Result.Success<T>,
+  f: (value: T) => Result.Failure<E2>,
+): Result.Failure<E2>
+function flatMap<T, T2, E2>(
+  this: Result.Success<T>,
+  f: (value: T) => Result<T2, E2>,
+): Result<T2, E2>
+function flatMap<T, E, T2, E2>(
+  this: Result.Failure<E>,
+  f: (value: T) => Result<T2, E2>,
+): Result.Failure<E>
+function flatMap<T, E, T2>(this: Result<T, E>, f: (value: T) => Result.Success<T2>): Result<T2, E>
+function flatMap<T, E, T2, E2>(
+  this: Result<T, E>,
+  f: (value: T) => Result.Failure<E2>,
+): Result.Failure<E | E2>
 function flatMap<T, E, T2, E2>(
   this: Result<T, E>,
   f: (value: T) => Result<T2, E2>,
@@ -82,13 +97,13 @@ function flatMap<T, E, T2, E2>(this: Result<T, E>, f: (value: T) => Result<T2, E
 }
 
 function assertErrorInstanceOf<T, C extends abstract new (..._: any) => any>(
-  this: Success<T>,
+  this: Result.Success<T>,
   constructor: C,
-): Success<T>
+): Result.Success<T>
 function assertErrorInstanceOf<E, C extends abstract new (..._: any) => any>(
-  this: Failure<E>,
+  this: Result.Failure<E>,
   constructor: C,
-): Failure<E & InstanceType<C>>
+): Result.Failure<E & InstanceType<C>>
 function assertErrorInstanceOf<T, E, C extends abstract new (..._: any) => any>(
   this: Result<T, E>,
   constructor: C,
@@ -178,40 +193,41 @@ export const prototype = {
    */
   assertErrorInstanceOf,
 } as const
-
-/**
- * The type of a successful result.
- * @example
- * const success: Success<number> = Result.success(123)
- */
-export type Success<T> = typeof prototype & {
-  readonly value: T
-  readonly error?: never
-  readonly isSuccess: true
-  readonly isFailure: false
-}
-/**
- * The type of a failed result.
- * @example
- * const failure: Failure<string> = Result.failure('error')
- */
-export type Failure<E> = typeof prototype & {
-  readonly value?: never
-  readonly error: E
-  readonly isSuccess: false
-  readonly isFailure: true
-}
 /** Type representing success or failure. */
-export type Result<T, E = unknown> = Success<T> | Failure<E>
+export type Result<T, E = unknown> = Result.Success<T> | Result.Failure<E>
 
 export namespace Result {
+  /**
+   * The type of a successful result.
+   * @example
+   * const success: Result.Success<number> = Result.success(123)
+   */
+  export type Success<T> = typeof prototype & {
+    readonly value: T
+    readonly error?: never
+    readonly isSuccess: true
+    readonly isFailure: false
+  }
+
+  /**
+   * The type of a failed result.
+   * @example
+   * const failure: Result.Failure<string> = Result.failure('error')
+   */
+  export type Failure<E> = typeof prototype & {
+    readonly value?: never
+    readonly error: E
+    readonly isSuccess: false
+    readonly isFailure: true
+  }
+
   /**
    * Creates a successful result.
    * @example
    * const result = Result.success(123)
    * console.log(result.value) // 123
    */
-  export function success<const T>(value: T): Success<T> {
+  export function success<const T>(value: T): Result.Success<T> {
     return withPrototype({ value, isSuccess: true, isFailure: false }, prototype)
   }
 
@@ -270,10 +286,10 @@ export namespace Result {
    * const result2 = Result.fromNullish(null);
    * console.log(result2.error) // null
    */
-  export function fromNullish(value: null): Result<never, null>
-  export function fromNullish(value: undefined): Result<never, undefined>
-  export function fromNullish(value: null | undefined): Result<never, null | undefined>
-  export function fromNullish<const T extends {}>(value: T): Result<T, never>
+  export function fromNullish(value: null): Result.Failure<null>
+  export function fromNullish(value: undefined): Result.Failure<undefined>
+  export function fromNullish(value: null | undefined): Result.Failure<null | undefined>
+  export function fromNullish<const T extends {}>(value: T): Result.Success<T>
   export function fromNullish<const T>(value: T | null): Result<T, null>
   export function fromNullish<const T>(value: T | undefined): Result<T, undefined>
   export function fromNullish<const T>(value: T | null | undefined): Result<T, null | undefined>
