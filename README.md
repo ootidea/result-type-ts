@@ -33,7 +33,7 @@ const result = Result.success(123)
 console.log(result.value) // 123
 ```
 
-___
+<hr style="border:0;border-top:1px solid #eee;">
 </details>
 
 <details>
@@ -57,7 +57,7 @@ const result = Result.failure('error')
 console.log(result.error) // error
 ```
 
-___
+<hr style="border:0;border-top:1px solid #eee;">
 </details>
 
 <details>
@@ -86,7 +86,7 @@ const result2 = Result.tryCatch(() => {
 console.log(result2.error) // error
 ```
 
-___
+<hr style="border:0;border-top:1px solid #eee;">
 </details>
 
 <details>
@@ -114,7 +114,7 @@ console.log(result2.error) // null
 console.log(result2.isFailure) // true
 ```
 
-___
+<hr style="border:0;border-top:1px solid #eee;">
 </details>
 
 <details>
@@ -141,7 +141,7 @@ const result2 = await Result.fromPromise(Promise.reject('error'))
 console.log(result2.error) // error
 ```
 
-___
+<hr style="border:0;border-top:1px solid #eee;">
 </details>
 
 ### Types
@@ -157,7 +157,7 @@ The type of a successful result holding a value of type <code>T</code>.
 const result: Result.Success<number> = Result.success(123)
 ```
 
-___
+<hr style="border:0;border-top:1px solid #eee;">
 </details>
 
 <details>
@@ -171,7 +171,7 @@ The type of a failed result holding an error value of type <code>E</code>.
 const result: Result.Failure<string> = Result.failure('error')
 ```
 
-___
+<hr style="border:0;border-top:1px solid #eee;">
 </details>
 
 <details>
@@ -185,7 +185,7 @@ Shorthand for <code>Result.Success&lt;T&gt; | Result.Failure&lt;E&gt;</code> typ
 const result: Result<number, string> = Math.random() > 0.5 ? Result.success(123) : Result.failure('error')
 ```
 
-___
+<hr style="border:0;border-top:1px solid #eee;">
 </details>
 
 ### Properties
@@ -214,7 +214,7 @@ const result2 = Result.failure('error')
 console.log(result2.value) // undefined
 ```
 
-___
+<hr style="border:0;border-top:1px solid #eee;">
 </details>
 
 <details>
@@ -241,7 +241,7 @@ const result2 = Result.failure('error')
 console.log(result2.error) // error
 ```
 
-___
+<hr style="border:0;border-top:1px solid #eee;">
 </details>
 
 <details>
@@ -268,7 +268,7 @@ const result2 = Result.failure('error')
 console.log(result2.isSuccess) // false
 ```
 
-___
+<hr style="border:0;border-top:1px solid #eee;">
 </details>
 
 <details>
@@ -295,7 +295,7 @@ const result2 = Result.failure('error')
 console.log(result2.isFailure) // true
 ```
 
-___
+<hr style="border:0;border-top:1px solid #eee;">
 </details>
 
 ### Methods
@@ -328,7 +328,7 @@ try {
 }
 ```
 
-___
+<hr style="border:0;border-top:1px solid #eee;">
 </details>
 
 <details>
@@ -355,7 +355,7 @@ const result2 = Result.failure('error')
 console.log(result2.toUnion()) // error
 ```
 
-___
+<hr style="border:0;border-top:1px solid #eee;">
 </details>
 
 <details>
@@ -382,7 +382,7 @@ const result2 = Result.failure('error')
 console.log(result2.ifSuccess((value) => value * 2)) // undefined
 ```
 
-___
+<hr style="border:0;border-top:1px solid #eee;">
 </details>
 
 <details>
@@ -409,7 +409,7 @@ const result2 = Result.failure('error')
 console.log(result2.ifFailure((error) => error + '!')) // error!
 ```
 
-___
+<hr style="border:0;border-top:1px solid #eee;">
 </details>
 
 <details>
@@ -436,7 +436,7 @@ const result2 = Result.failure('error')
 console.log(result2.match((value) => value * 2, (error) => error + '!')) // error!
 ```
 
-___
+<hr style="border:0;border-top:1px solid #eee;">
 </details>
 
 <details>
@@ -463,7 +463,7 @@ const result2 = Result.failure('error').map((value) => value * 2)
 console.log(result2.error) // error
 ```
 
-___
+<hr style="border:0;border-top:1px solid #eee;">
 </details>
 
 <details>
@@ -490,7 +490,7 @@ const result2 = Result.failure('error').mapError((error) => error + '!')
 console.log(result2.error) // error!
 ```
 
-___
+<hr style="border:0;border-top:1px solid #eee;">
 </details>
 
 <details>
@@ -517,7 +517,7 @@ const result2 = Result.failure('error').flatMap((value) => Result.failure(value 
 console.log(result2.error) // error
 ```
 
-___
+<hr style="border:0;border-top:1px solid #eee;">
 </details>
 
 <details>
@@ -547,7 +547,7 @@ const result3 = Result.failure('error').flatten()
 console.log(result3.error) // error
 ```
 
-___
+<hr style="border:0;border-top:1px solid #eee;">
 </details>
 
 <details>
@@ -577,5 +577,5 @@ const result: Result<number, Error> = Result.tryCatch(() => {
 console.log(result.isFailure && result.error.message) // error
 ```
 
-___
+<hr style="border:0;border-top:1px solid #eee;">
 </details>
