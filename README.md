@@ -32,6 +32,8 @@ A TypeScript library for the `Result<T, E>` type, which is supported in modern l
 const result = Result.success(123)
 console.log(result.value) // 123
 ```
+
+___
 </details>
 
 <details>
@@ -54,6 +56,8 @@ console.log(result.value) // 123
 const result = Result.failure('error')
 console.log(result.error) // error
 ```
+
+___
 </details>
 
 <details>
@@ -81,6 +85,8 @@ const result2 = Result.tryCatch(() => {
 })
 console.log(result2.error) // error
 ```
+
+___
 </details>
 
 <details>
@@ -107,6 +113,8 @@ const result2 = Result.fromNullish(null);
 console.log(result2.error) // null
 console.log(result2.isFailure) // true
 ```
+
+___
 </details>
 
 <details>
@@ -132,6 +140,8 @@ console.log(result.value) // 123
 const result2 = await Result.fromPromise(Promise.reject('error'))
 console.log(result2.error) // error
 ```
+
+___
 </details>
 
 ### Types
@@ -146,6 +156,8 @@ The type of a successful result holding a value of type <code>T</code>.
 ```ts
 const result: Result.Success<number> = Result.success(123)
 ```
+
+___
 </details>
 
 <details>
@@ -158,6 +170,8 @@ The type of a failed result holding an error value of type <code>E</code>.
 ```ts
 const result: Result.Failure<string> = Result.failure('error')
 ```
+
+___
 </details>
 
 <details>
@@ -170,6 +184,8 @@ Shorthand for <code>Result.Success&lt;T&gt; | Result.Failure&lt;E&gt;</code> typ
 ```ts
 const result: Result<number, string> = Math.random() > 0.5 ? Result.success(123) : Result.failure('error')
 ```
+
+___
 </details>
 
 ### Properties
@@ -197,6 +213,8 @@ console.log(result.value) // 123
 const result2 = Result.failure('error')
 console.log(result2.value) // undefined
 ```
+
+___
 </details>
 
 <details>
@@ -222,6 +240,8 @@ console.log(result.error) // undefined
 const result2 = Result.failure('error')
 console.log(result2.error) // error
 ```
+
+___
 </details>
 
 <details>
@@ -247,6 +267,8 @@ console.log(result.isSuccess) // true
 const result2 = Result.failure('error')
 console.log(result2.isSuccess) // false
 ```
+
+___
 </details>
 
 <details>
@@ -272,6 +294,8 @@ console.log(result.isFailure) // false
 const result2 = Result.failure('error')
 console.log(result2.isFailure) // true
 ```
+
+___
 </details>
 
 ### Methods
@@ -303,6 +327,8 @@ try {
   console.log(e) // error
 }
 ```
+
+___
 </details>
 
 <details>
@@ -328,6 +354,8 @@ console.log(result.toUnion()) // 123
 const result2 = Result.failure('error')
 console.log(result2.toUnion()) // error
 ```
+
+___
 </details>
 
 <details>
@@ -353,6 +381,8 @@ console.log(result.ifSuccess((value) => value * 2)) // 246
 const result2 = Result.failure('error')
 console.log(result2.ifSuccess((value) => value * 2)) // undefined
 ```
+
+___
 </details>
 
 <details>
@@ -378,6 +408,8 @@ console.log(result.ifFailure((error) => error + '!')) // undefined
 const result2 = Result.failure('error')
 console.log(result2.ifFailure((error) => error + '!')) // error!
 ```
+
+___
 </details>
 
 <details>
@@ -403,6 +435,8 @@ console.log(result.match((value) => value * 2, (error) => error + '!')) // 246
 const result2 = Result.failure('error')
 console.log(result2.match((value) => value * 2, (error) => error + '!')) // error!
 ```
+
+___
 </details>
 
 <details>
@@ -428,6 +462,8 @@ console.log(result.value) // 246
 const result2 = Result.failure('error').map((value) => value * 2)
 console.log(result2.error) // error
 ```
+
+___
 </details>
 
 <details>
@@ -453,6 +489,8 @@ console.log(result.value) // 123
 const result2 = Result.failure('error').mapError((error) => error + '!')
 console.log(result2.error) // error!
 ```
+
+___
 </details>
 
 <details>
@@ -478,6 +516,8 @@ console.log(result.value) // 246
 const result2 = Result.failure('error').flatMap((value) => Result.failure(value * 2))
 console.log(result2.error) // error
 ```
+
+___
 </details>
 
 <details>
@@ -506,6 +546,8 @@ console.log(result2.error) // error
 const result3 = Result.failure('error').flatten()
 console.log(result3.error) // error
 ```
+
+___
 </details>
 
 <details>
@@ -534,4 +576,6 @@ const result: Result<number, Error> = Result.tryCatch(() => {
 }).assertErrorInstanceOf(Error)
 console.log(result.isFailure && result.error.message) // error
 ```
+
+___
 </details>
