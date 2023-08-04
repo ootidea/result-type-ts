@@ -481,6 +481,34 @@ console.log(result2.error) // error
 </details>
 
 <details>
+<summary><code>result.flatten()</code></summary>
+
+<br>
+<table>
+  <tr>
+    <td><b>Type</b></td>
+    <td><code>() => Result&lt;T, E | E2></code></td>
+  </tr>
+  <tr>
+    <td><b>Description</b></td>
+    <td>Flattens the nested Result type. For instance, it converts <code>Result&lt;Result&lt;T, E>, E2></code> into <code>Result&lt;T, E | E2></code>.</td>
+  </tr>
+</table>
+
+#### Example
+```ts
+const result = Result.success(Result.success(123)).flatten()
+console.log(result.value) // 246
+
+const result2 = Result.success(Result.failure('error')).flatten()
+console.log(result2.error) // error
+
+const result3 = Result.failure('error').flatten()
+console.log(result3.error) // error
+```
+</details>
+
+<details>
 <summary><code>result.assertErrorInstanceOf(constructor)</code></summary>
 
 <br>

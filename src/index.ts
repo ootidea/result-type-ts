@@ -96,6 +96,19 @@ function flatMap<T, E, T2, E2>(this: Result<T, E>, f: (value: T) => Result<T2, E
   return f(this.value)
 }
 
+function flatten<E>(this: Result.Failure<E>): Result.Failure<E>
+function flatten<E>(this: Result.Success<Result.Failure<E>>): Result.Failure<E>
+function flatten<T>(this: Result.Success<Result.Success<T>>): Result.Success<T>
+function flatten<T, E>(this: Result.Success<Result<T, E>>): Result<T, E>
+function flatten<T, E>(this: Result<Result.Success<T>, E>): Result<T, E>
+function flatten<E, E2>(this: Result<Result.Failure<E>, E2>): Result.Failure<E | E2>
+function flatten<T, E, E2>(this: Result<Result<T, E>, E2>): Result<T, E | E2>
+function flatten<T, E, E2>(this: Result<Result<T, E>, E2>): Result<T, E | E2> {
+  if (this.isFailure) return this
+
+  return this.value
+}
+
 function assertErrorInstanceOf<T, C extends abstract new (..._: any) => any>(
   this: Result.Success<T>,
   constructor: C,
@@ -180,6 +193,14 @@ export const prototype = {
    * Result.failure('error').flatMap((x) => Result.failure('failure')) // Result.failure('error')
    */
   flatMap,
+  /**
+   * Flattens the nested Result type.
+   * @example
+   * Result.success(Result.success(123)).flatten() // Result.success(123)
+   * Result.success(Result.failure('error')).flatten() // Result.failure('error')
+   * Result.failure('error').flatten() // Result.failure('error')
+   */
+  flatten,
   /**
    * Perform a safe cast of the error type to the given class. If the payload of the failed result is not instance of constructor, throws TypeError.
    * @example

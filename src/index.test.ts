@@ -80,6 +80,17 @@ test('flatMap', () => {
   expect(failure.flatMap((value) => Result.success(-value))).toBe(failure)
 })
 
+test('flatten', () => {
+  const successSuccess = Result.success(Result.success(123))
+  expect(successSuccess.flatten()).toStrictEqual(Result.success(123))
+
+  const successFailure = Result.success(Result.failure('error'))
+  expect(successFailure.flatten()).toStrictEqual(Result.failure('error'))
+
+  const failure = Result.failure('error')
+  expect(failure.flatten()).toBe(failure)
+})
+
 test('tryCatch', () => {
   const success = Result.tryCatch(() => 123)
   expect(success.isSuccess).toBe(true)
