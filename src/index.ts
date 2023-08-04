@@ -248,7 +248,7 @@ export namespace Result {
    * const result = Result.success(123)
    * console.log(result.value) // 123
    */
-  export function success<const T>(value: T): Result.Success<T> {
+  export function success<T>(value: T): Result.Success<T> {
     return withPrototype({ value, isSuccess: true, isFailure: false }, prototype)
   }
 
@@ -258,7 +258,7 @@ export namespace Result {
    * const result = Result.failure('error')
    * console.log(result.error) // error
    */
-  export function failure<const E>(error: E): Failure<E> {
+  export function failure<E>(error: E): Failure<E> {
     return withPrototype({ error, isSuccess: false, isFailure: true }, prototype)
   }
 
@@ -310,19 +310,16 @@ export namespace Result {
   export function fromNullish(value: null): Result.Failure<null>
   export function fromNullish(value: undefined): Result.Failure<undefined>
   export function fromNullish(value: null | undefined): Result.Failure<null | undefined>
-  export function fromNullish<const T extends {}>(value: T): Result.Success<T>
-  export function fromNullish<const T>(value: T | null): Result<T, null>
-  export function fromNullish<const T>(value: T | undefined): Result<T, undefined>
-  export function fromNullish<const T>(value: T | null | undefined): Result<T, null | undefined>
-  export function fromNullish<const T>(value: T | null | undefined) {
+  export function fromNullish<T extends {}>(value: T): Result.Success<T>
+  export function fromNullish<T>(value: T | null): Result<T, null>
+  export function fromNullish<T>(value: T | undefined): Result<T, undefined>
+  export function fromNullish<T>(value: T | null | undefined): Result<T, null | undefined>
+  export function fromNullish<T>(value: T | null | undefined) {
     return value != null ? success(value) : failure(value)
   }
 }
 
-function withPrototype<const T, const P extends object>(
-  target: T,
-  prototype: P,
-): T & Omit<P, keyof T> {
+function withPrototype<T, P extends object>(target: T, prototype: P): T & Omit<P, keyof T> {
   Object.setPrototypeOf(target, prototype)
   return target as any
 }
