@@ -8,7 +8,8 @@
     "functional",
     "error-handling",
     "Either",
-    "Algebraic-Data-Types"
+    "Algebraic-Data-Types",
+    "Coproduct"
   ],
   "homepage": "https://github.com/ootidea/result-type-ts#readme",
   "bugs": {
