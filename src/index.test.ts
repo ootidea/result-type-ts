@@ -125,6 +125,20 @@ test('fromPromise', () => {
   expect(failurePromise).resolves.toStrictEqual(Result.failure('error'))
 })
 
+test('all', () => {
+  expect(Result.all([Result.success(123), Result.success(456)])).toStrictEqual(
+    Result.success([123, 456]),
+  )
+
+  expect(Result.all([Result.success(123), Result.failure('error')])).toStrictEqual(
+    Result.failure('error'),
+  )
+
+  expect(Result.all([Result.failure('error'), Result.failure('error2')])).toStrictEqual(
+    Result.failure('error'),
+  )
+})
+
 test('assertErrorInstanceOf', () => {
   const success = Result.success(123) as Result<number>
   expect(success.assertErrorInstanceOf(Error)).toBe(success)

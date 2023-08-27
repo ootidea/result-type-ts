@@ -144,6 +144,36 @@ console.log(result2.error) // error
 <br/>
 </details>
 
+<details>
+<summary><code>Result.all(results)</code></summary>
+
+<br>
+<table>
+  <tr>
+    <td><b>Type</b></td>
+    <td><code>&lt;T, E&gt;(results: Result&lt;T, E&gt;[]) =&gt; Result&lt;T[], E&gt;</code></td>
+  </tr>
+  <tr>
+    <td><b>Description</b></td>
+    <td>Converts an array of Results into a single Result. If all results are successful, it returns a successful result of an array of values. Otherwise, it returns the first failed result.</td>
+  </tr>
+</table>
+
+#### Example
+```ts
+const result = await Result.all([Result.success(123), Result.success(456)])
+console.log(result.value) // 123
+
+const result2 = await Result.all([Result.success(123), Result.failure('error')])
+console.log(result2.error) // error
+
+const result3 = await Result.all([Result.failure('error'), Result.failure('error2')])
+console.log(result3.error) // error
+```
+
+<br/>
+</details>
+
 ### Types
 
 <details>

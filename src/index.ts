@@ -317,6 +317,22 @@ export namespace Result {
   export function fromNullish<T>(value: T | null | undefined) {
     return value != null ? success(value) : failure(value)
   }
+
+  /**
+   * Converts an array of Results into a single Result.
+   * If all results are successful, it returns a successful result of an array of values.
+   * Otherwise, it returns the first failed result.
+   */
+  export function all<T>(results: readonly Result.Success<T>[]): Result.Success<T[]>
+  export function all<T, E>(results: readonly Result<T, E>[]): Result<T[], E>
+  export function all<T, E>(results: readonly Result<T, E>[]): Result<T[], E> {
+    const values: T[] = []
+    for (const result of results) {
+      if (result.isFailure) return result
+      values.push(result.value)
+    }
+    return success(values)
+  }
 }
 
 function withPrototype<T, P extends object>(target: T, prototype: P): T & Omit<P, keyof T> {
