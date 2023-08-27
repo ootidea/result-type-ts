@@ -1,6 +1,6 @@
 {
   "name": "result-type-ts",
-  "version": "2.0.0",
+  "version": "2.1.0",
   "description": "A TypeScript library for the Result type",
   "keywords": [
     "Result",
