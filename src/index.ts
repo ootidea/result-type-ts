@@ -336,6 +336,5 @@ export namespace Result {
 }
 
 function withPrototype<T, P extends object>(target: T, prototype: P): T & Omit<P, keyof T> {
-  Object.setPrototypeOf(target, prototype)
-  return target as any
+  return Object.assign(Object.create(prototype), target)
 }
