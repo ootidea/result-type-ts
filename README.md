@@ -1,12 +1,29 @@
-# result-type-ts
-A TypeScript library for the `Result<T, E>` type, which is supported in modern languages like Rust, Swift, Kotlin.
+<h1 align="center">result-type-ts</h1>
+
+A modern TypeScript library for the so-called Result type.
 
 ## Features
 - 0 dependencies
-- Provides many sophisticated functions, properties, and methods
+- Provides many utility functions about the Result type
 - Well-tested
 - Works on both browsers and Node.js
 - Strict type inference
+
+## Usage
+
+Here's a simple example of how to use this library:
+
+```ts
+import { Result } from 'result-type-ts'
+
+const result: Result<number, string> = Math.random() < 0.5 ? Result.success(123) : Result.failure('error')
+
+if (result.isSuccess) {
+  console.log(result.value) // 123
+} else {
+  console.log(result.error) // error
+}
+```
 
 ## API
 
