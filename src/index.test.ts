@@ -1,13 +1,15 @@
 import { expect, expectTypeOf, test } from 'vitest'
 import { Result } from './index'
 
-test('Properties', () => {
+test('success', () => {
   const success = Result.success(123) as Result<number>
   expect(success.isSuccess).toBe(true)
   expect(success.isFailure).toBe(false)
   expect(success.value).toBe(123)
   expect(success.error).toBe(undefined)
+})
 
+test('failure', () => {
   const failure = Result.failure('error') as Result<number>
   expect(failure.isSuccess).toBe(false)
   expect(failure.isFailure).toBe(true)
