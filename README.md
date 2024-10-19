@@ -602,17 +602,17 @@ console.log(result3.error) // error
 </details>
 
 <details>
-<summary><code>result.assertErrorInstanceOf(constructor)</code></summary>
+<summary><code>result.assertErrorInstanceOf(ctor)</code></summary>
 
 <br>
 <table>
   <tr>
     <td><b>Type</b></td>
-    <td><code>&lt;C extends abstract new (..._: any) => any>(constructor: C) => Result&lt;T, InstanceType&lt;C>></code></td>
+    <td><code>&lt;C extends abstract new (..._: any) => any>(ctor: C) => Result&lt;T, InstanceType&lt;C>></code></td>
   </tr>
   <tr>
     <td><b>Description</b></td>
-    <td>Perform a safe cast of the error type to the given class. If the payload of the failed result is not instance of <code>constructor</code>, throws <code>TypeError</code></td>
+    <td>Asserts that the error value is an instance of the given class. If the error value is not an instance of the given class, it throws <code>TypeError</code>.</td>
   </tr>
 </table>
 

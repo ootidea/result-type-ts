@@ -71,7 +71,7 @@ test('mapError', () => {
   expect(success.mapError((error) => -error)).toBe(success)
 
   const failure = Result.failure('error') as Result<number, string>
-  expect(failure.mapError((error) => '> ' + error)).toStrictEqual(Result.failure('> error'))
+  expect(failure.mapError((error) => `> ${error}`)).toStrictEqual(Result.failure('> error'))
 })
 
 test('flatMap', () => {
@@ -128,17 +128,11 @@ test('fromPromise', () => {
 })
 
 test('all', () => {
-  expect(Result.all([Result.success(123), Result.success(456)])).toStrictEqual(
-    Result.success([123, 456]),
-  )
+  expect(Result.all([Result.success(123), Result.success(456)])).toStrictEqual(Result.success([123, 456]))
 
-  expect(Result.all([Result.success(123), Result.failure('error')])).toStrictEqual(
-    Result.failure('error'),
-  )
+  expect(Result.all([Result.success(123), Result.failure('error')])).toStrictEqual(Result.failure('error'))
 
-  expect(Result.all([Result.failure('error'), Result.failure('error2')])).toStrictEqual(
-    Result.failure('error'),
-  )
+  expect(Result.all([Result.failure('error'), Result.failure('error2')])).toStrictEqual(Result.failure('error'))
 })
 
 test('assertErrorInstanceOf', () => {

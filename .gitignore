@@ -1,11 +1,14 @@
-# macOS
+# OS
 .DS_Store
+Thumbs.db
 
-# JetBrains(WebStorm)
+# IDE
 .idea
+.vscode
 
 # npm
 node_modules
-
-# build
 dist
+
+# test
+coverage

@@ -37,11 +37,7 @@ function ifFailure<T, E, E2>(this: Result<T, E>, f: (error: E) => E2): E2 | unde
 function match<T, E, T2, E2>(this: Result.Success<T>, f: (value: T) => T2, g: (error: E) => E2): T2
 function match<T, E, T2, E2>(this: Result.Failure<E>, f: (value: T) => T2, g: (error: E) => E2): E2
 function match<T, E, T2, E2>(this: Result<T, E>, f: (value: T) => T2, g: (error: E) => E2): T2 | E2
-function match<T, E, T2, E2>(
-  this: Result<T, E>,
-  f: (value: T) => T2,
-  g: (error: E) => E2,
-): T2 | E2 {
+function match<T, E, T2, E2>(this: Result<T, E>, f: (value: T) => T2, g: (error: E) => E2): T2 | E2 {
   if (this.isSuccess) return f(this.value)
 
   return g(this.error)
@@ -65,31 +61,13 @@ function mapError<T, E, E2>(this: Result<T, E>, f: (error: E) => E2): Result<T, 
   return Result.failure(f(this.error))
 }
 
-function flatMap<T, T2>(
-  this: Result.Success<T>,
-  f: (value: T) => Result.Success<T2>,
-): Result.Success<T2>
-function flatMap<T, E2>(
-  this: Result.Success<T>,
-  f: (value: T) => Result.Failure<E2>,
-): Result.Failure<E2>
-function flatMap<T, T2, E2>(
-  this: Result.Success<T>,
-  f: (value: T) => Result<T2, E2>,
-): Result<T2, E2>
-function flatMap<T, E, T2, E2>(
-  this: Result.Failure<E>,
-  f: (value: T) => Result<T2, E2>,
-): Result.Failure<E>
+function flatMap<T, T2>(this: Result.Success<T>, f: (value: T) => Result.Success<T2>): Result.Success<T2>
+function flatMap<T, E2>(this: Result.Success<T>, f: (value: T) => Result.Failure<E2>): Result.Failure<E2>
+function flatMap<T, T2, E2>(this: Result.Success<T>, f: (value: T) => Result<T2, E2>): Result<T2, E2>
+function flatMap<T, E, T2, E2>(this: Result.Failure<E>, f: (value: T) => Result<T2, E2>): Result.Failure<E>
 function flatMap<T, E, T2>(this: Result<T, E>, f: (value: T) => Result.Success<T2>): Result<T2, E>
-function flatMap<T, E, T2, E2>(
-  this: Result<T, E>,
-  f: (value: T) => Result.Failure<E2>,
-): Result.Failure<E | E2>
-function flatMap<T, E, T2, E2>(
-  this: Result<T, E>,
-  f: (value: T) => Result<T2, E2>,
-): Result<T2, E | E2>
+function flatMap<T, E, T2, E2>(this: Result<T, E>, f: (value: T) => Result.Failure<E2>): Result.Failure<E | E2>
+function flatMap<T, E, T2, E2>(this: Result<T, E>, f: (value: T) => Result<T2, E2>): Result<T2, E | E2>
 function flatMap<T, E, T2, E2>(this: Result<T, E>, f: (value: T) => Result<T2, E2>) {
   if (this.isFailure) return this
 
@@ -111,25 +89,25 @@ function flatten<T, E, E2>(this: Result<Result<T, E>, E2>): Result<T, E | E2> {
 
 function assertErrorInstanceOf<T, C extends abstract new (..._: any) => any>(
   this: Result.Success<T>,
-  constructor: C,
+  ctor: C,
 ): Result.Success<T>
 function assertErrorInstanceOf<E, C extends abstract new (..._: any) => any>(
   this: Result.Failure<E>,
-  constructor: C,
+  ctor: C,
 ): Result.Failure<E & InstanceType<C>>
 function assertErrorInstanceOf<T, E, C extends abstract new (..._: any) => any>(
   this: Result<T, E>,
-  constructor: C,
+  ctor: C,
 ): Result<T, E & InstanceType<C>>
 function assertErrorInstanceOf<T, E, C extends abstract new (..._: any) => any>(
   this: Result<T, E>,
-  constructor: C,
+  ctor: C,
 ): Result<T, E & InstanceType<C>> {
   if (this.isSuccess) return this
 
-  if (this.error instanceof constructor) return this as any
+  if (this.error instanceof ctor) return this as any
 
-  throw new TypeError(`Assertion failed: Expected error to be an instance of ${constructor.name}.`)
+  throw new TypeError(`Assertion failed: Expected error to be an instance of ${ctor.name}.`)
 }
 
 export const prototype = {
@@ -202,7 +180,8 @@ export const prototype = {
    */
   flatten,
   /**
-   * Perform a safe cast of the error type to the given class. If the payload of the failed result is not instance of constructor, throws TypeError.
+   * Asserts that the error value is an instance of the given class.
+   * If the error value is not an instance of the given class, it throws TypeError.
    * @example
    * const result: Result<number, Error> = Result.tryCatch(() => {
    *   if (Math.random() >= 0) {
@@ -322,14 +301,14 @@ export namespace Result {
   ): Equals<T, any> extends true
     ? Result<{}, null | undefined>
     : Equals<T, unknown> extends true
-    ? Result<{}, null | undefined>
-    : [T] extends [{}]
-    ? Result.Success<T>
-    : [T] extends [{} | null]
-    ? Result<Exclude<T, null>, null>
-    : [T] extends [{} | undefined]
-    ? Result<Exclude<T, undefined>, undefined>
-    : Result<Exclude<T, null | undefined>, null | undefined>
+      ? Result<{}, null | undefined>
+      : [T] extends [{}]
+        ? Result.Success<T>
+        : [T] extends [{} | null]
+          ? Result<Exclude<T, null>, null>
+          : [T] extends [{} | undefined]
+            ? Result<Exclude<T, undefined>, undefined>
+            : Result<Exclude<T, null | undefined>, null | undefined>
   export function fromNullish<T>(value: T) {
     return value != null ? success(value) : failure(value)
   }
@@ -355,6 +334,4 @@ function withPrototype<T, P extends object>(target: T, prototype: P): T & Omit<P
   return Object.assign(Object.create(prototype), target)
 }
 
-type Equals<T, U> = (<R>() => R extends T ? 1 : 2) extends <R>() => R extends U ? 1 : 2
-  ? true
-  : false
+type Equals<T, U> = (<R>() => R extends T ? 1 : 2) extends <R>() => R extends U ? 1 : 2 ? true : false
