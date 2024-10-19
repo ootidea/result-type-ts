@@ -214,14 +214,18 @@ export const prototype = {
    */
   assertErrorInstanceOf,
 } as const
+
 /** Type representing success or failure. */
 export type Result<T, E = unknown> = Result.Success<T> | Result.Failure<E>
 
 export namespace Result {
   /**
-   * The type of a successful result.
+   * Represents a successful result type with a payload.
    * @example
    * const success: Result.Success<number> = Result.success(123)
+   * console.log(success.value) // 123
+   * console.log(success.isSuccess) // true
+   * console.log(success.isFailure) // false
    */
   export type Success<T> = typeof prototype & {
     readonly value: T
@@ -231,9 +235,12 @@ export namespace Result {
   }
 
   /**
-   * The type of a failed result.
+   * Represents a failed result type with an error value.
    * @example
    * const failure: Result.Failure<string> = Result.failure('error')
+   * console.log(failure.error) // error
+   * console.log(failure.isFailure) // true
+   * console.log(failure.isSuccess) // false
    */
   export type Failure<E> = typeof prototype & {
     readonly value?: never

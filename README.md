@@ -31,6 +31,8 @@ A TypeScript library for the `Result<T, E>` type, which is supported in modern l
 ```ts
 const result = Result.success(123)
 console.log(result.value) // 123
+console.log(result.isSuccess) // true
+console.log(result.isFailure) // false
 ```
 
 <br/>
@@ -55,6 +57,8 @@ console.log(result.value) // 123
 ```ts
 const result = Result.failure('error')
 console.log(result.error) // error
+console.log(result.isFailure) // true
+console.log(result.isSuccess) // false
 ```
 
 <br/>
@@ -180,7 +184,7 @@ console.log(result3.error) // error
 <summary><code>Result.Success&lt;T&gt;</code></summary>
 
 <br>
-The type of a successful result holding a value of type <code>T</code>.
+Represents a successful result type with a payload of type <code>T</code>.
 
 #### Example
 ```ts
@@ -194,7 +198,7 @@ const result: Result.Success<number> = Result.success(123)
 <summary><code>Result.Failure&lt;E&gt;</code></summary>
 
 <br>
-The type of a failed result holding an error value of type <code>E</code>.
+Represents a failed result type with an error value of type <code>E</code>.
 
 #### Example
 ```ts
