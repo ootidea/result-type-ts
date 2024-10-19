@@ -317,11 +317,20 @@ export namespace Result {
   export function fromNullish(value: null): Result.Failure<null>
   export function fromNullish(value: undefined): Result.Failure<undefined>
   export function fromNullish(value: null | undefined): Result.Failure<null | undefined>
-  export function fromNullish<T extends {}>(value: T): Result.Success<T>
-  export function fromNullish<T>(value: T | null): Result<T, null>
-  export function fromNullish<T>(value: T | undefined): Result<T, undefined>
-  export function fromNullish<T>(value: T | null | undefined): Result<T, null | undefined>
-  export function fromNullish<T>(value: T | null | undefined) {
+  export function fromNullish<T>(
+    value: T,
+  ): Equals<T, any> extends true
+    ? Result<{}, null | undefined>
+    : Equals<T, unknown> extends true
+    ? Result<{}, null | undefined>
+    : [T] extends [{}]
+    ? Result.Success<T>
+    : [T] extends [{} | null]
+    ? Result<Exclude<T, null>, null>
+    : [T] extends [{} | undefined]
+    ? Result<Exclude<T, undefined>, undefined>
+    : Result<Exclude<T, null | undefined>, null | undefined>
+  export function fromNullish<T>(value: T) {
     return value != null ? success(value) : failure(value)
   }
 
@@ -345,3 +354,7 @@ export namespace Result {
 function withPrototype<T, P extends object>(target: T, prototype: P): T & Omit<P, keyof T> {
   return Object.assign(Object.create(prototype), target)
 }
+
+type Equals<T, U> = (<R>() => R extends T ? 1 : 2) extends <R>() => R extends U ? 1 : 2
+  ? true
+  : false
