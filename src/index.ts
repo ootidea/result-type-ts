@@ -74,6 +74,19 @@ function flatMap<T, E, T2, E2>(this: Result<T, E>, f: (value: T) => Result<T2, E
   return f(this.value)
 }
 
+function flatMapAsync<T, T2>(this: Result.Success<T>, f: (value: T) => Promise<Result.Success<T2>>): Promise<Result.Success<T2>>
+function flatMapAsync<T, E2>(this: Result.Success<T>, f: (value: T) => Promise<Result.Failure<E2>>): Promise<Result.Failure<E2>>
+function flatMapAsync<T, T2, E2>(this: Result.Success<T>, f: (value: T) => Promise<Result<T2, E2>>): Promise<Result<T2, E2>>
+function flatMapAsync<T, E, T2, E2>(this: Result.Failure<E>, f: (value: T) => Promise<Result<T2, E2>>): Promise<Result.Failure<E>>
+function flatMapAsync<T, E, T2>(this: Result<T, E>, f: (value: T) => Promise<Result.Success<T2>>): Promise<Result<T2, E>>
+function flatMapAsync<T, E, T2, E2>(this: Result<T, E>, f: (value: T) => Promise<Result.Failure<E2>>): Promise<Result.Failure<E | E2>>
+function flatMapAsync<T, E, T2, E2>(this: Result<T, E>, f: (value: T) => Promise<Result<T2, E2>>): Promise<Result<T2, E | E2>>
+function flatMapAsync<T, E, T2, E2>(this: Result<T, E>, f: (value: T) => Promise<Result<T2, E2>>) {
+  if (this.isFailure) return Promise.resolve(this)
+
+  return f(this.value)
+}
+
 function flatten<E>(this: Result.Failure<E>): Result.Failure<E>
 function flatten<E>(this: Result.Success<Result.Failure<E>>): Result.Failure<E>
 function flatten<T>(this: Result.Success<Result.Success<T>>): Result.Success<T>
@@ -171,6 +184,15 @@ export const prototype = {
    * Result.failure('error').flatMap((x) => Result.failure('failure')) // Result.failure('error')
    */
   flatMap,
+  /**
+   * Maps the payload of the successful result and flattens the nested Result type.
+   * @example
+   * Result.success(123).flatMapAsync((x) => Promise.resolve(Result.success(x * 2)))) // Promise.resolve(Result.success(246))
+   * Result.success(123).flatMapAsync((x) => Promise.resolve(Result.failure('error'))) // Promise.resolve(Result.failure('error'))
+   * Result.failure('error').flatMapAsync((x: number) => Promise.resolve(Result.success(x * 2))) // Promise.resolve(Result.failure('error'))
+   * Result.failure('error').flatMapAsync((x) => Promise.resolve(Result.failure('failure'))) // Promise.resolve(Result.failure('error'))
+   */
+  flatMapAsync,
   /**
    * Flattens the nested Result type.
    * @example
