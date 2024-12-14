@@ -185,7 +185,7 @@ export const prototype = {
    */
   flatMap,
   /**
-   * Maps the payload of the successful result and flattens the nested Result type.
+   * Applies an async function returning a Result type to the payload of a successful Result.
    * @example
    * Result.success(123).flatMapAsync((x) => Promise.resolve(Result.success(x * 2)))) // Promise.resolve(Result.success(246))
    * Result.success(123).flatMapAsync((x) => Promise.resolve(Result.failure('error'))) // Promise.resolve(Result.failure('error'))
