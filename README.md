@@ -588,11 +588,10 @@ console.log(result2.error) // error
 
 #### Example
 ```ts
-const result = await Result.success(123).flatMapAsync((value) => Promise.resolve(Result.success(value * 2)))
+const result = await Result.success(123).flatMapAsync(async (value) => Result.success(value * 2))
 console.log(result.value) // 246
 
-const result2 = await Result.failure('error')
-  .flatMapAsync((value) => Promise.resolve(Result.failure(value * 2)))
+const result2 = await Result.failure('error').flatMapAsync(async (value) => Result.failure(value * 2))
 console.log(result2.error) // error
 ```
 

@@ -84,11 +84,12 @@ test('flatMap', () => {
 
 test('flatMapAsync', () => {
   const success = Result.success(123) as Result<number, string>
-  expect(success.flatMapAsync((value) => Promise.resolve(Result.success(-value))))
-    .toStrictEqual(Promise.resolve(Result.success(-123)))
+  expect(success.flatMapAsync(async (value) => Result.success(-value))).toStrictEqual(
+    Promise.resolve(Result.success(-123)),
+  )
 
   const failure = Result.failure('error') as Result<number, string>
-  expect(failure.flatMapAsync((value) => Promise.resolve(Result.success(-value)))).toStrictEqual(Promise.resolve(failure))
+  expect(failure.flatMapAsync(async (value) => Result.success(-value))).toStrictEqual(Promise.resolve(failure))
 })
 
 test('flatten', () => {
