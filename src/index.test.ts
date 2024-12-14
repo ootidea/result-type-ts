@@ -82,6 +82,15 @@ test('flatMap', () => {
   expect(failure.flatMap((value) => Result.success(-value))).toBe(failure)
 })
 
+test('flatMapAsync', () => {
+  const success = Result.success(123) as Result<number, string>
+  expect(success.flatMapAsync((value) => Promise.resolve(Result.success(-value))))
+    .toStrictEqual(Promise.resolve(Result.success(-123)))
+
+  const failure = Result.failure('error') as Result<number, string>
+  expect(failure.flatMapAsync((value) => Promise.resolve(Result.success(-value)))).toStrictEqual(Promise.resolve(failure))
+})
+
 test('flatten', () => {
   const successSuccess = Result.success(Result.success(123))
   expect(successSuccess.flatten()).toStrictEqual(Result.success(123))

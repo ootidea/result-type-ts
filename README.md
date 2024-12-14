@@ -572,6 +572,34 @@ console.log(result2.error) // error
 </details>
 
 <details>
+<summary><code>result.flatMapAsync(f)</code></summary>
+
+<br>
+<table>
+  <tr>
+    <td><b>Type</b></td>
+    <td><code>&lt;T2, E2>(f: (value: T) => Result&lt;T2, E2>) => Result&lt;T2, E | E2></code></td>
+  </tr>
+  <tr>
+    <td><b>Description</b></td>
+    <td>Maps the payload of the successful result and flattens the nested async Result function.</td>
+  </tr>
+</table>
+
+#### Example
+```ts
+const result = await Result.success(123).flatMapAsync((value) => Promise.resolve(Result.success(value * 2)))
+console.log(result.value) // 246
+
+const result2 = await Result.failure('error')
+  .flatMapAsync((value) => Promise.resolve(Result.failure(value * 2)))
+console.log(result2.error) // error
+```
+
+<br/>
+</details>
+
+<details>
 <summary><code>result.flatten()</code></summary>
 
 <br>
